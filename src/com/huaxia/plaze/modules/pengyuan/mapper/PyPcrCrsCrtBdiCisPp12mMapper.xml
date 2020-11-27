@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtBdiCisPp12mMapper">
+
+	<insert id="savePyPcrCrsCrtBdiCisPp12m"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtBdiCisPp12m">
+		INSERT INTO PY_PCR_CRS_CRT_BDI_CIS_PP12M(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			FIRST_MONTH,
+			LAST_MONTH,
+			LIMIT_VALUES,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{firstMonth},
+			#{lastMonth},
+			#{limitValues},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

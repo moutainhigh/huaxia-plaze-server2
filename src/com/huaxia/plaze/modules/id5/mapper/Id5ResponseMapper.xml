@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.id5.mapper.Id5ResponseMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.id5.domain.Id5Response">
+		INSERT INTO ID5_MSG_RESPONSE(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			MESSAGE_BODY
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{messageBody,jdbcType = VARCHAR}
+		)
+	</insert>
+	
+
+	<select id="findResponseByRequest" parameterType="java.util.Map" resultType="java.lang.String">
+	 SELECT RESULT_JSON
+		FROM ID5_RESPONSE WHERE TRN_ID IN (
+     SELECT TRN_ID FROM ID5_TRN_REQUEST
+		WHERE CERT_NO=#{certNo,jdbcType = VARCHAR} 
+		AND NAME=#{name,jdbcType = VARCHAR} 
+		AND MOBILE=#{mobile,jdbcType = VARCHAR})
+	 ORDER BY CRT_TIME
+	</select>
+	<insert id="saveEduData"  parameterType="com.huaxia.plaze.modules.id5.domain.Education">
+		INSERT INTO id5_info 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="trnId != null and trnId !='' ">TRN_ID,</if>
+		<if test="xm != null and  xm !='' ">USERNAME,</if>
+		<if test="zjhm != null  and  zjhm !='' ">IDENTITYCARD,</if>
+		<if test="yxmc != null and  yxmc !='' ">GRADUATE,</if>
+		<if test="cc != null and  cc !='' ">EDUCATIONDEGREE,</if>
+		<if test="byrq != null and  byrq !='' ">GRADUATETIME,</if>
+		<if test="bjyjl != null and  bjyjl !='' ">STUDYRESULT,</if>
+		<if test="xllb != null and  xllb !='' ">STUDYSTYLE,</if>
+		<if test="schoolType != null and  schoolType !='' ">SCHOOLTYPE,</if>
+		<if test="photo != null and  photo !='' ">PHOTO,</if>
+		<if test="hisname != null and  hisname !='' ">HISNAME,</if>
+		<if test="schoolCity != null and  schoolCity !='' ">SCHOOLCITY,</if>
+		<if test="schoolTrade != null and  schoolTrade !='' ">SCHOOLTRADE,</if>
+		<if test="organization != null and  organization !='' ">ORGANIZATION,</if>
+		<if test="schoolNature != null and  schoolNature !='' ">SCHOOLNATURE,</if>
+		<if test="schoolCategory != null and  schoolCategory !='' ">SCHOOLCATEGORY,</if>
+		<if test="level != null and  level !='' ">LEVEL_,</if>
+		<if test="educationApproach != null and  educationApproach !='' ">EDUCATIONAPPROACH,</if>
+		<if test="createDate != null and  createDate !='' ">CREATEDATE,</if>
+		<if test="createYear != null and  createYear !='' ">CREATEYEAR,</if>
+		<if test="academicianNum != null and  academicianNum !='' ">ACADEMICIANNUM,</if>
+		<if test="bshldzNum != null and  bshldzNum !='' ">BSHLDZNUM,</if>
+		<if test="bsdNum != null and  bsdNum !='' ">BSDNUM,</if>
+		<if test="ssdNum != null and  ssdNum !='' ">SSDNUM,</if>
+		<if test="zdxkNum != null and  zdxkNum !='' ">ZDXKNUM,</if>
+		<if test="lklqpc != null and  lklqpc !='' ">LKLQPC,</if>
+		<if test="wklqpc != null and  wklqpc !='' ">WKLQPC,</if>
+		<if test="xxxs != null and  xxxs !='' ">DSTUDYSTYLE,</if>
+		<if test="queryStatus != null and  queryStatus !='' ">QUERY_STATUS,</if>
+		<if test="queryResult != null and  queryResult !='' ">QUERY_RESULT,</if>
+		CRT_TIME,
+		<if test="crtUser != null and  crtUser !='' ">CRT_USER,</if>
+		</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">                                                          
+		<if test="trnId != null and  trnId !='' ">#{trnId,jdbcType=CHAR},</if>                                         
+ 		<if test="xm != null and  xm !='' ">#{xm,jdbcType=VARCHAR},</if>                                               
+ 		<if test="zjhm != null and  zjhm !='' ">#{zjhm,jdbcType=VARCHAR},</if>                                         
+ 		<if test="yxmc != null and  yxmc !='' ">#{yxmc,jdbcType=VARCHAR},</if>                                         
+ 		<if test="cc != null and  cc !='' ">#{cc,jdbcType=VARCHAR},</if>                                                	                                                                                                                 	                                                                                                                 
+  		<if test="byrq != null and  byrq !='' ">#{byrq,jdbcType=VARCHAR},</if>                                       
+  		<if test="bjyjl != null and  bjyjl !='' ">#{bjyjl,jdbcType=VARCHAR},</if>                                    
+ 		<if test="xllb != null and  xllb !='' ">#{xllb,jdbcType=VARCHAR},</if>                                         
+ 		<if test="schoolType != null and  schoolType !='' ">#{schoolType,jdbcType=VARCHAR},</if>                       
+		<if test="photo != null and  photo !='' ">#{photo,jdbcType=CLOB},</if>                                         
+		<if test="hisname != null and  hisname !='' ">#{hisname,jdbcType=VARCHAR},</if>                                
+ 		<if test="schoolCity != null and  schoolCity !='' ">#{schoolCity,jdbcType=VARCHAR},</if>                       
+ 		<if test="schoolTrade != null and  schoolTrade !='' ">#{schoolTrade,jdbcType=VARCHAR},</if>                    
+ 		<if test="organization != null and  organization !='' ">#{organization,jdbcType=VARCHAR},</if>                 
+ 		<if test="schoolNature != null and  schoolNature !='' ">#{schoolNature,jdbcType=VARCHAR},</if>                 
+ 		<if test="schoolCategory != null and  schoolCategory !='' ">#{schoolCategory,jdbcType=VARCHAR},</if>           
+ 		<if test="level != null and  level !='' ">#{level,jdbcType=VARCHAR},</if>                                      
+ 		<if test="educationApproach != null and  educationApproach !='' ">#{educationApproach,jdbcType=VARCHAR},</if>  
+ 		<if test="createDate != null and  createDate !='' ">#{createDate,jdbcType=VARCHAR},</if>                       
+ 		<if test="createYear != null and  createYear !='' ">#{createYear,jdbcType=VARCHAR},</if>                       
+ 		<if test="academicianNum != null and  academicianNum !='' ">#{academicianNum,jdbcType=VARCHAR},</if>           
+ 		<if test="bshldzNum != null and  bshldzNum !='' ">#{bshldzNum,jdbcType=VARCHAR},</if>                          
+ 		<if test="bsdNum != null and  bsdNum !='' ">#{bsdNum,jdbcType=VARCHAR},</if>                                   
+ 		<if test="ssdNum != null and  ssdNum !='' ">#{ssdNum,jdbcType=VARCHAR},</if>                                   
+ 		<if test="zdxkNum != null and  zdxkNum !='' ">#{zdxkNum,jdbcType=VARCHAR},</if>                                
+ 		<if test="lklqpc != null and  lklqpc !='' ">#{lklqpc,jdbcType=VARCHAR},</if>                                   
+ 		<if test="wklqpc != null and  wklqpc !='' ">#{wklqpc,jdbcType=VARCHAR},</if>                                   
+ 		<if test="xxxs != null and  xxxs !='' ">#{xxxs,jdbcType=VARCHAR},</if>                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+ 		<if test="queryStatus != null and  queryStatus !='' ">#{queryStatus,jdbcType=CHAR},</if>                       
+ 		<if test="queryResult != null and  queryResult !='' ">#{queryResult,jdbcType=VARCHAR},</if>                    
+ 		SYSDATE,                                                                                                       
+ 		<if test="crtUser != null and  crtUser !='' ">#{crtUser,jdbcType=VARCHAR},</if>                                
+ 		</trim>                                                                             
+	</insert>
+	
+	
+</mapper>

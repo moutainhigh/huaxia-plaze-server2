@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tencent.mapper.TYAntifraudMapper">
+
+  <insert id="insertTyData" parameterType="com.huaxia.plaze.modules.tencent.domain.TYAntifraudData" >
+    INSERT INTO TIANYU_ANTIFRAUD_BASE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        UUID,CRT_TIME, CRT_USER,
+      <if test="trnId != null" >
+        TRN_ID,
+      </if>
+      <if test="pkUuid != null" >
+        PK_UUID,
+      </if>
+      <if test="certNo != null" >
+        CERT_NO,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="codeDesc != null" >
+        CODEDESC,
+      </if>
+      <if test="found != null" >
+        FOUND,
+      </if>
+      <if test="idFound != null" >
+        IDFOUND,
+      </if>
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+      <if test="riskScore != null" >
+        RISKSCORE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      SYS_GUID(),SYSDATE,
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trnId != null" >
+        #{trnId,jdbcType=CHAR},
+      </if>
+      <if test="pkUuid != null" >
+        #{pkUuid,jdbcType=CHAR},
+      </if>
+      <if test="certNo != null" >
+        #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeDesc != null" >
+        #{codeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="found != null" >
+        #{found,jdbcType=DECIMAL},
+      </if>
+      <if test="idFound != null" >
+        #{idFound,jdbcType=DECIMAL},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="riskScore != null" >
+        #{riskScore,jdbcType=DECIMAL},
+      </if>
+
+    </trim>
+  </insert>
+  <insert id="insertBatchTyRisk" parameterType="java.util.List" >
+    INSERT INTO TIANYU_ANTIFRAUD_RISKINFO (UUID, CRT_TIME, CRT_USER, TRN_ID, FK_UUID, CERT_NO, 
+    	RISKCODE, RISKCODEVALUE)
+     <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+		  SYS_GUID(),SYSDATE,
+		  #{item.crtUser,jdbcType=VARCHAR}, 
+		  #{item.trnId,jdbcType=CHAR}, 
+		  #{item.fkUuid,jdbcType=CHAR},
+		  #{item.certNo,jdbcType=CHAR},
+		  #{item.riskCode,jdbcType=VARCHAR}, 
+          #{item.riskCodeValue,jdbcType=VARCHAR}
+		FROM  DUAL
+	</foreach>
+  </insert>
+</mapper>

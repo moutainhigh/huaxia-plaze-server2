@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtBdiLisAciMapper">
+
+	<insert id="savePyPcrCrsCrtBdiLisAci"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtBdiLisAci">
+		INSERT INTO PY_PCR_CRS_CRT_BDI_LIS_ACI(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			LAST_PAYMENT_MONTH,
+			REMAIN_TERMS,
+			BALANCE_LAST_TERM,
+			RPA_LAST_TERM,
+			AA_LAST_TERM,
+			ARREAR_TIMES_COUNT,
+			ATCO_CONTINUOUS,
+			ATCO_TOTAL,
+			ARREAR_TIMES1,
+			ARREAR_TIMES2,
+			ARREAR_TIMES3,
+			ARREAR_TIMES4,
+			ARREAR_TIMES5,
+			ARREAR_TIMES6,
+			ARREAR_TIMES7_12,
+			ARREAR_TIMES_OVER12,
+			INFO_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{lastPaymentMonth},
+			#{remainTerms},
+			#{balanceLastTerm},
+			#{rpaLastTerm},
+			#{aaLastTerm},
+			#{arrearTimesCount},
+			#{atcoCountinuous},
+			#{atcoTotal},
+			#{arrearTimes1},
+			#{arrearTimes2},
+			#{arrearTimes3},
+			#{arrearTimes4},
+			#{arrearTimes5},
+			#{arrearTimes6},
+			#{arrearTimes7_12},
+			#{arrearTimesOver12},
+			#{infoDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankDebitCreditInfoMapper">
+  <!-- 保存 基本信息段 PD01A  -->
+  <insert id="insertDebitCreditBasicInfo" parameterType="PD01A" >
+   INSERT INTO BANK_DEBIT_CREDIT_BASIC_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, ACCOUNT_SERIAL, 
+      ACCOUNT_TYPE, SERV_MANAGE_ORGAN_TYPE, SERV_MANAGE_ORGAN_CODE, 
+      ACCOUNT_MARK, CREDIT_XY_SERIAL, SERV_TYPE, 
+      KL_DATE, CURRENCY, BORROW_MONEY, 
+      ACCO_CREDIT_LIMIT, SHARE_CREDIT_LIMIT, DUE_DATE, 
+      MODE_OF_REPAYMENT, REPAYMENT_FREQUENCY, REPAYMENT_PERIODS, 
+      GUARANTY_TYPE, LOAN_DISTRIBUTE_FORM, COMMON_DEBIT_CREDIT_MARK, 
+      ASSIGN_DEBT_REPAY_STATUS, RELATE_ID, CRT_TIME
+      )
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01AI01,jdbcType=VARCHAR}, 
+      #{PD01AD01,jdbcType=VARCHAR}, #{PD01AD02,jdbcType=VARCHAR}, #{PD01AI02,jdbcType=VARCHAR}, 
+      #{PD01AI03,jdbcType=VARCHAR}, #{PD01AI04,jdbcType=VARCHAR}, #{PD01AD03,jdbcType=VARCHAR}, 
+      #{PD01AR01,jdbcType=VARCHAR}, #{PD01AD04,jdbcType=VARCHAR}, #{PD01AJ01,jdbcType=VARCHAR}, 
+      #{PD01AJ02,jdbcType=VARCHAR}, #{PD01AJ03,jdbcType=VARCHAR}, #{PD01AR02,jdbcType=VARCHAR}, 
+      #{PD01AD05,jdbcType=VARCHAR}, #{PD01AD06,jdbcType=VARCHAR}, #{PD01AS01,jdbcType=VARCHAR}, 
+      #{PD01AD07,jdbcType=VARCHAR}, #{PD01AD08,jdbcType=VARCHAR}, #{PD01AD09,jdbcType=VARCHAR}, 
+      #{PD01AD10,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, SYSDATE
+      )
+  </insert>	
+  <!-- 保存最新表现信息段 PD01B -->
+    <insert id="insertDebitCreditNewstShow" parameterType="PD01B" >
+    INSERT INTO BANK_DEBIT_CREDIT_NEWST_SHOW (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, ACCOUNT_STATUS, 
+      CLOSE_DATE, ZC_MONTH, BALANCE, 
+      NEAREST_REPAY_DATE, NEAREST_REPAY_MONEY, FIVE_CLASSIFY, 
+      REPAY_STATUS, INFO_REPORT_DATE, RELATE_ID, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01BD01,jdbcType=VARCHAR}, 
+      #{PD01BR01,jdbcType=VARCHAR}, #{PD01BR04,jdbcType=VARCHAR}, #{PD01BJ01,jdbcType=VARCHAR}, 
+      #{PD01BR02,jdbcType=VARCHAR}, #{PD01BJ02,jdbcType=VARCHAR}, #{PD01BD03,jdbcType=VARCHAR}, 
+      #{PD01BD04,jdbcType=VARCHAR}, #{PD01BR03,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, 
+      SYSDATE)
+  </insert>
+  <!-- 保存 最近一次月度表现信息段 PD01C -->
+    <insert id="insertDebitCreditNearestMonth" parameterType="PD01C" >
+    INSERT INTO BANK_DEBIT_CREDIT_NEAREST_M (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, MONTH, 
+      ACCOUNT_STATUS, BALANCE, USED_LIMIT, 
+      UNISSU_DEZX_FQYE, FIVE_CLASSIFY, REMANENT_REPAY_PERIODS, 
+      SETTLE_DUE_DATE, THIS_MONTH_DUE, THIS_MONTH_ACTUAL_PAY, 
+      NEAREST_REPAY_DATE, CUR_OVERDUE_PERIODS, CUR_OVERDUE_TOTAL, 
+      OVERDUE3160_NREPAY_CAPITAL, OVERDUE6190_NREPAY_CAPITAL, 
+      OVERDUE91180_NREPAY_CAPITAL, OVERDUE180ADD_NREPAY_CAPITAL, 
+      OVERDRAFT180ADD_NPAY_BALAN, RECENT6M_AVG_USE_LIMIT, 
+      RECENT6M_AVG_OVERBALANCE, MAX_USE_LIMIT, MAX_OVERDRAFT_BALANCE, 
+      INFO_REPORT_DATE, RELATE_ID, CRT_TIME
+      )
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01CR01,jdbcType=VARCHAR}, 
+      #{PD01CD01,jdbcType=VARCHAR}, #{PD01CJ01,jdbcType=VARCHAR}, #{PD01CJ02,jdbcType=VARCHAR}, 
+      #{PD01CJ03,jdbcType=VARCHAR}, #{PD01CD02,jdbcType=VARCHAR}, #{PD01CS01,jdbcType=VARCHAR}, 
+      #{PD01CR02,jdbcType=VARCHAR}, #{PD01CJ04,jdbcType=VARCHAR}, #{PD01CJ05,jdbcType=VARCHAR}, 
+      #{PD01CR03,jdbcType=VARCHAR}, #{PD01CS02,jdbcType=VARCHAR}, #{PD01CJ06,jdbcType=VARCHAR}, 
+      #{PD01CJ07,jdbcType=VARCHAR}, #{PD01CJ08,jdbcType=VARCHAR}, 
+      #{PD01CJ09,jdbcType=VARCHAR}, #{PD01CJ10,jdbcType=VARCHAR}, 
+      #{PD01CJ11,jdbcType=VARCHAR}, #{PD01CJ12,jdbcType=VARCHAR}, 
+      #{PD01CJ13,jdbcType=VARCHAR}, #{PD01CJ14,jdbcType=VARCHAR}, #{PD01CJ15,jdbcType=VARCHAR}, 
+      #{PD01CR04,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, SYSDATE
+      )
+	</insert>
+	<!-- 保存 最近24个月还款记录信息段数据 PD01D/PD01Ddata -->
+	<insert id="insertDebitCreditNearest24MonthRepayRecord" parameterType="PD01Ddata" >
+     INSERT INTO BANK_NEAREST24M_REPAY_RECORD (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, START_YEAR_MONTH, 
+      END_YEAR_MONTH, RELATE_ID, CRT_TIME
+      )
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01DR01,jdbcType=VARCHAR}, 
+      #{PD01DR02,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, SYSDATE
+      )
+	</insert>
+	<!-- 保存 最近24个月还款状态信息 PD01D/pd01dhList -->
+	<insert id="insertDebitCreditRepayStatusInfoList" parameterType="java.util.List" >
+    INSERT INTO BANK_REPAY_STATUS_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, MONTH, 
+      REPAY_STATUS, RELATE_ID, CRT_TIME
+      )
+     <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+	    	 SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PD01DR03,jdbcType=VARCHAR}, 
+      		 #{item.PD01DD01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, SYSDATE
+		FROM DUAL
+	 </foreach>
+	</insert>
+	<!-- 保存最近5年内历史表现信息段数据 PD01E/PD01Edata -->
+	<insert id="insertDebitCreditNearest5YearHistory" parameterType="PD01Edata" >
+    INSERT INTO BANK_NEAREST5Y_HIS_EXPRESS (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, START_YEAR_MONTH, 
+      END_YEAR_MONTH, MONTH_NUM, RELATE_ID, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01ER01,jdbcType=VARCHAR}, 
+      #{PD01ER02,jdbcType=VARCHAR}, #{PD01ES01,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	<!-- 保存最近5年内历史表现信息 PD01E/PD01EH -->
+	<insert id="insertDebitCreditNearest5YearHisExpressList" parameterType="java.util.List" >
+    INSERT INTO BANK_HISTORY_EXPRESS_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, MONTH, 
+      REPAY_STATUS, OVERDUE_TOTAL, RELATE_ID, 
+      CRT_TIME)
+       <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+	    	 SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PD01ER03,jdbcType=VARCHAR}, 
+      		 #{item.PD01ED01,jdbcType=VARCHAR}, #{item.PD01EJ01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+     		 SYSDATE
+		FROM DUAL
+	  </foreach>
+	</insert>
+	<!-- 保存特殊交易信息段数据 PD01F/PD01Fdata -->
+	<insert id="insertDebitCreditSpecialTransaction" parameterType="PD01Fdata" >
+    INSERT INTO BANK_SPECIAL_TRANSACTION (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, TRADE_COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01FS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存特殊交易信息  PD01F/PD01FH  -->
+	<insert id="insertDebitCreditSpecialTradeList" parameterType="java.util.List">
+      INSERT INTO BANK_LOAN_CARD_SPETRAD (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      TYPE, OCCUR_DATE, CHANGING_MONTHS, 
+      OCCUR_AMT, DETAIL_REC, RELATE_ID, 
+      CRT_TIME)
+	 <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	 SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, 
+      #{item.PD01FD01,jdbcType=VARCHAR}, #{item.PD01FR01,jdbcType=VARCHAR}, #{item.PD01FS02,jdbcType=VARCHAR}, 
+      #{item.PD01FJ01,jdbcType=VARCHAR}, #{item.PD01FQ01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	 FROM DUAL
+	 </foreach>
+	</insert>
+	<!-- 保存 特殊事件说明信息段 PD01G/PD01Gdata  -->
+	<insert id="insertDebitCreditSpecialEventExpress" parameterType="PD01Gdata" >
+    INSERT INTO BANK_SPECIAL_EVENT_EXPRESS (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, EXPRESS_COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01GS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存   特殊事件说明信息  PD01G/PD01GH  -->
+	<insert id="insertDebitCreditSpecialEventExpressInfoList" parameterType="java.util.List" >
+    INSERT INTO BANK_SPECIAL_EVENTEXPS_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, OCCUR_MONTH, 
+      TYPE, RELATE_ID, CRT_TIME)
+	 <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	 SELECT
+	 SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PD01GR01,jdbcType=VARCHAR}, 
+      #{item.PD01GD01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR},SYSDATE
+	 FROM DUAL
+	 </foreach>
+	</insert>
+	<!-- 保存   大额专项分期信息段 PD01H/PD01Hdata  -->
+	<insert id="insertDebitCreditDezxFq" parameterType="PD01Hdata" >
+    INSERT INTO BANK_DEZX_FQ (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, FQ_COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01HS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存 大额专项分期信息 PD01H/PD01HH    -->
+	<insert id="insertDebitCreditDezxFqInfoList" parameterType="java.util.List" >
+    INSERT INTO BANK_DEZX_FQ_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, FQED, 
+      FQED_EFFECT_DATE, FQED_EXPIRE_DATE, USED_FQ_MONEY, 
+      RELATE_ID, CRT_TIME)
+       <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	   SELECT
+	   SYS_GUID(),#{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PD01HJ01,jdbcType=VARCHAR}, 
+      #{item.PD01HR01,jdbcType=VARCHAR}, #{item.PD01HR02,jdbcType=VARCHAR}, #{item.PD01HJ02,jdbcType=VARCHAR}, 
+      #{item.relateId,jdbcType=VARCHAR},SYSDATE
+	   FROM DUAL
+	  </foreach>
+	</insert>
+	<!-- 保存 标注及声明信息段 PD01Z/PD01Zdata  -->
+	<insert id="insertDebitCreditPdaLabelState" parameterType="PD01Zdata" >
+    INSERT INTO BANK_PDA_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PD01ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存 标注及声明信息  PD01Z/PD01ZH 集合  -->
+	<insert id="insertDebitCreditPdaLabelStateInfoList" parameterType="java.util.List" >
+    INSERT INTO BANK_PDA_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, TYPE, 
+      CONTENT, ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+       <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	   SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PD01ZD01,jdbcType=VARCHAR}, 
+      #{item.PD01ZQ01,jdbcType=VARCHAR}, #{item.PD01ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	   FROM DUAL
+	  </foreach>
+	</insert>
+</mapper>

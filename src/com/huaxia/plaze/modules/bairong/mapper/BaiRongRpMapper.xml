@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongRpMapper">
+	
+	<insert id="insertResponseInfo" parameterType="java.util.Map">
+		INSERT INTO BAIRONG_MSG_RESPONSE (
+			UUID, CRT_TIME, CRT_USER,TRN_ID, RESPONSE_BODY
+		) VALUES (
+			SYS_GUID(),SYSDATE,
+			#{rqChannel, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{responseBody, jdbcType = VARCHAR}
+		)
+	</insert>
+     
+    <select id="selectBodyByTrnId" parameterType="java.lang.String">
+    SELECT RESPONSE_BODY FROM BAIRONG_MSG_RESPONSE 
+    	WHERE
+    	TRN_ID=#{trnId, jdbcType = VARCHAR}
+    </select>
+   
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtBdiLisAbiMapper">
+
+	<insert id="savePyPcrCrsCrtBdiLisAbi"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtBdiLisAbi">
+		INSERT INTO PY_PCR_CRS_CRT_BDI_LIS_ABI(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			ACCOUNT_NO,
+			UNIT,
+			CURRENCY,
+			LOAN_ITEM,
+			GUARANTEE_MODE,
+			AUTHORIZED_AMOUNT,
+			AMOUNT,
+			STATUS,
+			OPEN_DATE,
+			MATURITY_DATE,
+			PAYMENT_BEGIN_DATE,
+			PAYMENT_PLAN,
+			PAYMENT_MODE,
+			INSTALLMENT_PLAN,
+			INFO_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{accountNo},
+			#{unit},
+			#{currency},
+			#{loanItem},
+			#{guaranteeMode},
+			#{authorizedAmount},
+			#{amount},
+			#{status},
+			#{openDate},
+			#{maturityDate},
+			#{paymentBeginDate},
+			#{paymentPlan},
+			#{paymentMode},
+			#{installmentPlan},
+			#{infoDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

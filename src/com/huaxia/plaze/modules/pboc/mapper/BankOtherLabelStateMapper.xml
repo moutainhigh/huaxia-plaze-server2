@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankOtherLabelStateMapper">
+	<!-- 保存其他标注及声明信息单元 PG01/PG01data -->
+	<insert id="insertOtherLabelState" parameterType="PG01data" >
+    INSERT INTO BANK_POS_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, OBJ_TYPE, 
+      OBJ_MARK, TYPE_COUNT, RELATE_ID, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PG010D01,jdbcType=VARCHAR}, 
+      #{PG010D02,jdbcType=VARCHAR}, #{PG010S01,jdbcType=VARCHAR}, #{relateId,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	<!-- 保存 其他标注及声明信息  PG01/PG010H 集合 -->
+	<insert id="insertOtherLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_POS_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+	  TYPE, CONTENT, 
+	  ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},
+	   #{item.PG010D03,jdbcType=VARCHAR}, #{item.PG010Q01,jdbcType=VARCHAR}, 
+	   #{item.PG010R01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPwslTrnRequestMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPwslTrnRequest">
+		INSERT INTO PY_PWSL_TRN_REQUEST(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			NAME,
+			CERT_NO,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{requestChannel},
+			#{queryMode},
+			#{name},
+			#{certNo},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

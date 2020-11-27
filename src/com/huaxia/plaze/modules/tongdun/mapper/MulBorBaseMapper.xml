@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorBaseMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.tongdun.domain.MulBorBase">
+		INSERT INTO MULBOR_BASE (
+		  UUID  ,
+		  CRT_TIME ,
+		  CRT_USER  ,
+		  PK_UUID ,
+		  APP_ID  ,
+		  CERT_NO ,
+		  TRN_ID,
+		  MOBILE,
+		  
+		  SUCCESS  ,
+		  ID ,
+		  REASON_CODE ,
+		  REASON_DESC ,
+		  NEXTSERVICE  ,
+		  ERROR_INFO  ,
+		  
+		  FINAL_SCORE ,
+		  FINAL_DECISION,
+		  COURT_CLOSE_RISK_1  ,
+		  OVERDUE_RISK_2 ,
+		  COURT_RISK_3  ,
+		  OVERDUE_REPAY_RISK_4  ,
+		  COMPANY_TAXOWING_RISK_5 ,
+		  COURT_ZHIXING_RISK_6  ,
+		  CAR_LOAN_RISK_7    ,
+		  TAX_OWING_RISK_8  ,
+		  CRIME_RISK_9  ,
+		  STUDENT_LOAN_RISK_10 ,
+		  VEHICLE_LEASE_DEFAULT_RISK_11,
+		  COMPANY_PAYING_RISK_12 ,
+		  DELIBERATE_VIOLATION_RISK_13 ,
+		  FALSE_MOBILE_RISK_14 ,
+		  ALIMOBILE_RISK_15 ,
+		  OVERDUE_RISK_16  ,
+		  VEHICLE_LEASE_DEFAULT_RISK_17,
+		  COMPANY_PAYING_RISK_18  ,
+		  OVERDUE_REPAY_RISK_19  ,
+		  FOLLOW_HIGH_20   ,
+		  FOLLOW_MEDIUM_21 ,
+		  FOLLOW_LOW_22    ,
+		  FOLLOW_HIGH_23 ,
+		  FOLLOW_MEDIUM_24 ,
+		  FOLLOW_LOW_25,
+		  ext_search_result
+		
+		) VALUES (
+		    
+		    #{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			#{pkUuid, jdbcType = CHAR},
+			#{appId, jdbcType = CHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{mobile, jdbcType = VARCHAR},
+			
+			#{success, jdbcType = VARCHAR},
+			#{ID, jdbcType = VARCHAR},
+			#{reasonCode, jdbcType = VARCHAR},
+			#{reasonDesc, jdbcType = VARCHAR},
+			#{nextService, jdbcType = VARCHAR},
+			#{errorInfo, jdbcType = VARCHAR},
+			
+			#{finalScore, jdbcType = INTEGER},
+			#{finalDecision, jdbcType = VARCHAR},
+			
+			#{courtCloseRisk1, jdbcType = VARCHAR},
+			#{overdueRisk2, jdbcType = VARCHAR},
+			#{courtRisk3, jdbcType = VARCHAR},
+			#{overdueRepayRisk4, jdbcType = VARCHAR},
+			#{companyTaxowingRisk5, jdbcType = VARCHAR},
+			#{courtZhixingRisk6, jdbcType = VARCHAR},
+			#{carLoanRisk7, jdbcType = VARCHAR},
+			#{taxOwingRisk8, jdbcType = VARCHAR},
+			#{crimeRisk9, jdbcType = VARCHAR},
+			#{studentLoanRisk10, jdbcType = VARCHAR},
+			#{vehicleLeaseDefaultRisk11, jdbcType = VARCHAR},
+			#{companyPayingRisk12, jdbcType = VARCHAR},
+			#{deliberateViolationRisk13, jdbcType = VARCHAR},
+			#{falseMobileRisk14, jdbcType = VARCHAR},
+			#{alimobileRisk15, jdbcType = VARCHAR},
+			#{overdueRisk16, jdbcType = VARCHAR},
+			#{vehicleLeaseDefaultRisk17, jdbcType = VARCHAR},
+			#{companyPayingRisk18, jdbcType = VARCHAR},
+			#{overdueRepayRisk19, jdbcType = VARCHAR},
+			#{followHigh20, jdbcType = VARCHAR},
+			#{followMedium21, jdbcType = VARCHAR},
+			#{followLow22, jdbcType = VARCHAR},
+			#{followHigh23, jdbcType = VARCHAR},
+			#{followMedium24, jdbcType = VARCHAR},
+			#{followLow25, jdbcType = VARCHAR},
+			#{extSearchResult, jdbcType = VARCHAR}
+		
+		)
+	</insert>
+	
+</mapper>

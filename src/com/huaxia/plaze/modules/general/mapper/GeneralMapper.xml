@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.general.mapper.GeneralMapper">
+
+	<select id="selectGeneralData" resultType="com.huaxia.plaze.modules.general.domain.GeneralData">
+		select trn_code trnCode,class_name className,method,bean_name beanName from general_class_setting where trn_code = #{trnCode, jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

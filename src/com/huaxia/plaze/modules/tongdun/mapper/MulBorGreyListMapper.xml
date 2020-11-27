@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorGreyListMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.tongdun.domain.MulBorGreyList">
+		INSERT INTO MULBOR_GREY_LIST (
+			  UUID ,
+			  CRT_TIME,
+			  CRT_USER,
+			  REF_UUID ,
+			  APP_ID  ,
+		      TRN_ID,
+			  TYPE,
+			  DESCRIPTION ,
+			  HIT_TYPE_DISPLAY_NAME ,
+			  FRAUD_TYPE_DISPLAY_NAME,
+			  VALUE ,
+			  RISK_LEVEL ,
+			  FRAUD_TYPE ,
+			  EVIDENCE_TIME
+ 		
+		) VALUES (
+			#{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			#{refUuid, jdbcType = CHAR},
+			#{appId, jdbcType = CHAR},
+			#{trnId, jdbcType = CHAR},
+			#{type, jdbcType = VARCHAR},
+			#{description, jdbcType = VARCHAR},
+			#{hitTypeDisplayName, jdbcType = VARCHAR},
+			#{fraudTypeDisplayName, jdbcType = VARCHAR},
+			#{value, jdbcType = VARCHAR},
+			#{riskLevel, jdbcType = VARCHAR},
+			#{fraudType, jdbcType = VARCHAR},
+			#{evidenceTime, jdbcType = VARCHAR}
+		
+		)
+	</insert>
+	
+</mapper>

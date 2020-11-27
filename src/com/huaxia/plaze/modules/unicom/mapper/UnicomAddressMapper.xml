@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.unicom.mapper.UnicomAddressMapper">
+
+	<insert id="insterUnicomAddressTrnRequest" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomAddressTrnRequest">
+		INSERT INTO UNICOM_ADDRESS_TRN_REQUEST (
+		UUID,
+		CRT_TIME,
+		CRT_USER,
+		TRN_ID,
+		REQUEST_CHANNEL,
+		QUERY_MODE,
+		NAME,
+		MOBILE,
+		CARRIER,
+		API_KEY,
+		ADDRESS
+		) VALUES (
+		sys_guid(),
+		sysdate,
+		#{crtUser, jdbcType = VARCHAR},
+		#{trnId, jdbcType = CHAR},
+		#{requestChannel, jdbcType = VARCHAR},
+		#{queryMode, jdbcType = CHAR},
+		#{name, jdbcType = VARCHAR},
+		#{mobile, jdbcType = VARCHAR},
+		#{carrier, jdbcType = VARCHAR},
+		#{apiKey, jdbcType = VARCHAR},
+		#{address, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insterUnicomAddressMsgResponse" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomAddressMsgResponse">
+		INSERT INTO UNICOM_ADDRESS_MSG_RESPONSE (
+		UUID,
+		CRT_TIME,
+		CRT_USER,
+		TRN_ID,
+		MESSAGE_BODY
+		) VALUES (
+		sys_guid(),
+		sysdate,
+		#{crtUser, jdbcType = VARCHAR},
+		#{trnId, jdbcType = CHAR},
+		#{messageBody, jdbcType = CLOB}
+		)	
+	</insert>
+	
+	<insert id="insterUnicomAddress" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomAddress">
+		INSERT INTO UNICOM_ADDRESS_INFO (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			TRN_KEY,
+			API_KEY,
+			STATUS,
+			CODE,
+			ERROR_DESC,
+			CHECK_RESULT,
+			CHECK_DESC,
+			CARRIER,			
+			MOBILE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			sys_guid(),
+			#{apiKey, jdbcType = CHAR},
+			#{status, jdbcType = CHAR},
+			#{code, jdbcType = VARCHAR},
+			#{errorDesc, jdbcType = VARCHAR},
+			#{checkResult, jdbcType = VARCHAR},
+			#{checkDesc, jdbcType = VARCHAR},
+			#{carrier, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR}			
+		)	
+	</insert>
+	
+</mapper>

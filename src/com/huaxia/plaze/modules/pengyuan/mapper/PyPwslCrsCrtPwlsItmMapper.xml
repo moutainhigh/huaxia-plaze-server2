@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPwslCrsCrtPwlsItmMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPwslCrsCrtPwlsItm">
+		INSERT INTO PY_PWSL_CRS_CRT_PWLS_ITM(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			SCORE,
+			GRADE,
+			ADVICE,
+			LABEL,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{score},
+			#{grade},
+			#{advice},
+			#{label},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

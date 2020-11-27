@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.baoxin.mapper.BaoXinMapper">
+	
+	<insert id="saveRequest" parameterType="com.huaxia.plaze.modules.baoxin.domain.BaoXinRequest">
+		INSERT INTO BXQC_TRN_REQUEST (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			CERT_TYPE,
+			CERT_NO,
+			NAME,
+			INSURER_UUID,
+			TRN_CODE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{insurerUuid, jdbcType = VARCHAR},
+			#{trnCode, jdbcType = VARCHAR}
+		)	
+	</insert>
+	<select id="selectCountOfDay" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM BXQC_TRN_REQUEST WHERE TO_CHAR(CRT_TIME,'yyyy-mm-dd')= TO_CHAR(SYSDATE,'yyyy-mm-dd')
+	</select>
+	
+	<insert id="saveResponse" parameterType="com.huaxia.plaze.modules.baoxin.domain.BaoXinResponse">
+		INSERT INTO BXQC_MSG_RESPONSE (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			MESSAGE_BODY
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{messageBody, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+	<insert id="saveBase" parameterType="com.huaxia.plaze.modules.baoxin.domain.BaoXinBase">
+		INSERT INTO BXQC_BASE_DATA (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			RISK_VALUE_RANGE,
+			CAR_AGE,
+			CERT_NO,
+			INSURER_UUID,
+			RET_CODE,
+			RET_MESSAGE,
+			BANK_CODE,
+			RETURN_TIME
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{riskValueRange, jdbcType = VARCHAR},
+			#{carAge, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{insurerUuid, jdbcType = VARCHAR},
+			#{retCode, jdbcType = VARCHAR},
+			#{retMessage, jdbcType = VARCHAR},
+			#{bankCode, jdbcType = VARCHAR},
+			#{returnTime, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+	<parameterMap type="java.util.Map" id="parameter_callDataSourceCount">
+		<parameter property="source_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="channel_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="v_set" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="end_num" mode="OUT" jdbcType="NUMERIC"/>
+	</parameterMap>
+
+	<select id="callDataSource" parameterMap="parameter_callDataSourceCount" statementType="CALLABLE">
+		CALL ds_BXQC_001900_count(?,?,?,?)
+	</select>
+	
+	<select id="selectBody" resultType="java.lang.String">
+		select message_body from(
+		select t2.message_body from bxqc_trn_request t1,bxqc_msg_response t2 where t1.trn_id = t2.trn_id
+		and t1.cert_no = #{certNo, jdbcType = VARCHAR}
+		and t2.crt_time > sysdate-1
+		order by t2.crt_time desc)
+		where rownum = 1
+	</select>
+	
+</mapper>

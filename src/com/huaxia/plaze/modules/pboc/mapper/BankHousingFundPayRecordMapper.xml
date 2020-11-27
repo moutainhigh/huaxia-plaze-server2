@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankHousingFundPayRecordMapper">
+   <!-- 保存 住房公积金参缴记录信息段 PF05A  -->
+  <insert id="insertHousingFundPayRecordInfo" parameterType="PF05A" >
+    INSERT INTO BANK_PUBLIC_ACCFUND (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, JOIN_SOCL_INSU_PL, JOIN_SOCL_INSU_DT, 
+      PAY_STATUS, FIRST_DEPOSIT_YM, PAY_YM,  
+      COMP_DEPOSIT_RATE, PERSON_DEPOSIT_RATE, MONTHLY_DEPOSIT,   
+      PAY_COMP, INFO_UPD_TIME,
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR},
+      #{PF05AQ01,jdbcType=VARCHAR}, #{PF05AR01,jdbcType=VARCHAR}, 
+      #{PF05AD01,jdbcType=VARCHAR}, #{PF05AR02,jdbcType=VARCHAR}, #{PF05AR03,jdbcType=VARCHAR}, 
+      #{PF05AQ02,jdbcType=VARCHAR}, #{PF05AQ03,jdbcType=VARCHAR}, #{PF05AJ01,jdbcType=VARCHAR}, 
+      #{PF05AQ04,jdbcType=VARCHAR}, #{PF05AR04,jdbcType=VARCHAR},
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+  </insert>
+	<!-- 保存住房公积金参缴记录的标注及声明信息段 PF05Z/PF05Zdata  -->
+	<insert id="insertHousingFundPayRecordPfhLabelState" parameterType="PF05Zdata" >
+    INSERT INTO BANK_PHF_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PF05ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存住房公积金参缴记录的标注及声明信息 PF05Z/PF05ZH集合 -->
+	<insert id="insertHousingFundPayRecordPfhLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_PHF_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+	  TYPE, CONTENT, 
+	  ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},
+	  #{item.PF05ZD01,jdbcType=VARCHAR}, #{item.PF05ZQ01,jdbcType=VARCHAR},
+	  #{item.PF05ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

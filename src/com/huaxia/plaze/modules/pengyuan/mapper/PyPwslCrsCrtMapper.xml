@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPwslCrsCrtMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPwslCrsCrt">
+		INSERT INTO PY_PWSL_CRS_CRT(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REPORT_ID,
+			BUILD_END_TIME,
+			QUERY_REASON_ID,
+			SUB_REPROT_TYPES,
+			TREAT_RESULT,
+			SUB_REPORT_TYPES_SHORT_CAPTION,
+			REF_ID,
+			HAS_SYSTEM_ERROR,
+			IS_FROZEN,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{reportId},
+			#{buildEnTime},
+			#{queryReasonId},
+			#{subReportTypes},
+			#{treatResult},
+			#{subReportTypesShortCaption},
+			#{refId},
+			#{hasSystemError},
+			#{isFrozen},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

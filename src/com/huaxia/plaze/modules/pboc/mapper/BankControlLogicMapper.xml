@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankControlLogicMapper">
+	<!--插入三方平台的 任务控制表  三方平台解析入库用-->
+	<insert id="insertBankTaskCall" >
+	INSERT INTO  BANK_TASK_CALL (ID, UNIQUE_RELID,SOURCE_ID, TASK_IP, 
+      TASK_STATUS, IDENTITY_TYPE, IDENTITY_NO, 
+      NAME, QUERY_FLAG, SOURCE, 
+      LST_OPT_TIME, CRT_TIME)
+    VALUES (SYS_GUID(), #{uniqueRelid,jdbcType=VARCHAR},#{sourceId,jdbcType=VARCHAR}, #{taskIp,jdbcType=VARCHAR}, 
+      #{taskStatus,jdbcType=VARCHAR}, #{identityType,jdbcType=VARCHAR}, #{identityNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{queryFlag,jdbcType=CHAR}, #{source,jdbcType=CHAR}, 
+      SYSDATE, SYSDATE)
+	</insert>
+	<!-- 保存 人行原始报文数据  -->
+    <insert id="insertBankBodyOriginal" >
+     INSERT INTO BANK_BODY_ORIGINAL (UUID, IDENTITY_CARD_NO, IDENTITY_TYPE, 
+      NAME, BODY, UNIQUE_RELID,TASK_IP, CRT_TIME
+      )
+     VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{identityType,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{body,jdbcType=CLOB}, 
+      #{uniqueRelid,jdbcType=VARCHAR},#{taskIp,jdbcType=VARCHAR}, SYSDATE)
+    </insert>
+    <!-- 查询最近一次查人行的数据是否存在 -->
+	<select id="selectLateIdNoUniqueRelid" parameterType="java.util.Map" resultType="java.lang.String">
+    SELECT　UNIQUE_RELID　FROM　BANK_BODY_ORIGINAL
+    WHERE IDENTITY_CARD_NO = #{identityCardNo,jdbcType=VARCHAR} AND IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR} 
+    AND NAME = #{name,jdbcType=VARCHAR} AND CRT_TIME &gt;= (SYSDATE-TO_NUMBER(#{dayControl})) AND　ROWNUM = 1 
+    </select>
+    <!-- 查询最近一次返回人行的报文 -->
+	<select id="selectBankMessage" parameterType="java.util.Map" resultType="java.lang.String">
+	SELECT BODY FROM (
+		SELECT　BODY　FROM　BANK_BODY_ORIGINAL
+    	WHERE IDENTITY_CARD_NO = #{identityCardNo,jdbcType=VARCHAR} AND IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR} 
+   	    AND NAME = #{name,jdbcType=VARCHAR} ORDER BY CRT_TIME DESC
+	) WHERE ROWNUM = 1
+    </select>
+    <!-- 获取人行解析入库任务集合 -->
+    <select id="selectBankParserTaskList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT SOURCE, UNIQUE_RELID, IDENTITY_TYPE, IDENTITY_NO, NAME, TASK_STATUS
+	FROM(
+	    SELECT SOURCE, UNIQUE_RELID, IDENTITY_TYPE, IDENTITY_NO, NAME, TASK_STATUS
+		FROM BANK_TASK_CALL
+		WHERE　TASK_IP = #{taskIp,jdbcType=VARCHAR} AND TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+		ORDER BY CRT_TIME
+	) WHERE ROWNUM &lt;= #{querySize}
+    </select>
+    <!-- 根据唯一关联id获取人行相应报文 -->
+    <select id="selectBankMessageByUniqueRelid"  resultType="java.lang.String">
+    	SELECT BODY FROM BANK_BODY_ORIGINAL WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+    </select>
+	<!-- 根据唯一关联id获取人行相应报文 -->
+	<update id="updateBankTaskCall">
+     UPDATE BANK_TASK_CALL SET TASK_STATUS = #{taskStatus,jdbcType=VARCHAR},
+     LST_OPT_TIME = SYSDATE
+     WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+	</update>
+    <!-- 获取人行解析入库任务集合 -->
+    <delete id="deleteBankTask">
+     DELETE FROM BANK_TASK_CALL WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+     AND TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+    </delete>
+    <!--查询唯一关联id，用于判断查询唯一关联id的数据，在表中是否存在 -->
+    <select id="selectBankBodyOriginalUniqueRelid" resultType="java.lang.String">
+    	SELECT UNIQUE_RELID FROM BANK_BODY_ORIGINAL WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+    </select>
+    <!-- 保存人行对内 任务到历史表(根据唯一关联id) -->
+    <insert id="insertBankTaskHis">
+      INSERT INTO BANK_TASK_CALL_HIS (ID, UNIQUE_RELID, SOURCE_ID, 
+      TASK_IP, TASK_STATUS, IDENTITY_TYPE, 
+      IDENTITY_NO, NAME, QUERY_FLAG, 
+      SOURCE, LST_OPT_TIME, CRT_TIME, 
+      CURR_CRT_TIME)
+     SELECT SYS_GUID(), UNIQUE_RELID, SOURCE_ID, 
+      TASK_IP, TASK_STATUS, IDENTITY_TYPE, 
+      IDENTITY_NO, NAME, QUERY_FLAG, 
+      SOURCE, LST_OPT_TIME, CRT_TIME, 
+      SYSDATE FROM BANK_TASK_CALL 
+      WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=CHAR}
+    </insert>
+    <!-- 根据控制天数和每次查询数量查出所需的uniqueRelid集合 -->
+    <select id="selectBankBodyUniqueRelidList" resultType="java.lang.String">
+	  SELECT UNIQUE_RELID FROM BANK_BODY_ORIGINAL WHERE CRT_TIME &lt;= (SYSDATE-#{dayControl})
+	  AND TASK_IP = #{taskIp} AND ROWNUM &lt; #{queryNum}
+    </select>
+    <!-- 保存原始报文到历史表 -->
+    <insert id="saveBankBodyHis">
+      INSERT INTO  BANK_BODY_ORIGINAL_HIS (UUID, IDENTITY_CARD_NO, IDENTITY_TYPE, 
+      NAME, UNIQUE_RELID, TASK_IP, CRT_TIME, CURR_CRT_TIME, BODY)
+      SELECT SYS_GUID(),IDENTITY_CARD_NO, IDENTITY_TYPE, 
+      NAME, UNIQUE_RELID, TASK_IP, CRT_TIME, SYSDATE, BODY
+      FROM BANK_BODY_ORIGINAL
+      WHERE UNIQUE_RELID IN
+      <foreach item="item" index="index" collection="uniqueRelidList"
+			open="(" separator="," close=")">
+			#{item}
+	  </foreach>
+    </insert>
+    <!-- 删除原始报文 根据唯一关联id集合 -->
+    <delete id="deleteBankBody">
+    	DELETE FROM BANK_BODY_ORIGINAL WHERE UNIQUE_RELID IN
+     	 <foreach item="item" index="index" collection="uniqueRelidList"
+			open="(" separator="," close=")">
+			#{item}
+		 </foreach>
+    </delete>
+   <resultMap id="BankControlNumTimeMap" type="BankControlTimeNum">
+	 <result column="START_TIME" property="startTime" jdbcType="DATE" javaType="java.util.Date"/>
+	 <result column="END_TIME" property="endTime" jdbcType="DATE" javaType="java.util.Date"/>
+	 <result column="MAX_COUNT" property="maxCount" jdbcType="VARCHAR" />
+	</resultMap>
+    <select id="selectBankControlNumTime" resultMap="BankControlNumTimeMap">
+     SELECT   START_TIME , END_TIME,  MAX_COUNT FROM TASK_QUERY_SETTING
+     WHERE TASK_TYPE = #{taskType,jdbcType=VARCHAR}
+    </select>
+    <select id="selectBankNumByTime" resultType="java.lang.Integer">
+      SELECT COUNT(1) FROM BANK_REPORT_MARK_INFO WHERE 
+       CRT_TIME &gt;=TRUNC(#{startTime})  AND 
+       CRT_TIME &lt;(TRUNC(#{endTime})+1)
+    </select>
+</mapper>

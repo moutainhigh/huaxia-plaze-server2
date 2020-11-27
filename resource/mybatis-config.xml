@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+    	<setting name="jdbcTypeForNull" value="NULL" />
+		<!--  
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    	-->
+    </settings>
+    <typeAliases>
+    	<!-- 人行征信 -->
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pah" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pap" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pbs" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pca" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pce" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pcj" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pco" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pcr" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pda" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.phf" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pim" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pmm" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pnd" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pno" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pom" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.poq" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pos" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pot" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.ppo" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.ppq" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.pqo" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.prh" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.prm" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain.psm" />
+    	<package name="com.huaxia.plaze.modules.pboc.domain" />
+    	
+    	<!-- 百融多头借贷 -->
+    	<package name="com.huaxia.plaze.modules.bairong.domain" />
+    	
+    	<!-- 数据源 -->
+    	<package name="com.huaxia.plaze.datasource.domain" />
+    </typeAliases>
+</configuration>

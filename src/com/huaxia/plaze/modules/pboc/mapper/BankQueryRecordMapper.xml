@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankQueryRecordMapper">
+	<!-- 保存查询记录信息单元 PH01 集合 -->
+	<insert id="insertQueryRecordList" parameterType="java.util.List" >
+	INSERT INTO BANK_QUERYREC_RECDETAIL (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, QRY_DATE, 
+      QUERY_ORG_TYPE, QUERY_ORG, QRY_REASON, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(),
+	  #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PH010R01,jdbcType=VARCHAR}, 
+      #{item.PH010D01,jdbcType=VARCHAR}, #{item.PH010Q02,jdbcType=VARCHAR}, #{item.PH010Q03,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

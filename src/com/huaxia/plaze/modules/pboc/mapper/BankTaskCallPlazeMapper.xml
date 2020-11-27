@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankTaskCallPlazeMapper">
+	<resultMap id="requestMap"  type="java.util.Map">
+	<result column="UNIQUE_RELID" property="uniqueRelid" jdbcType="VARCHAR" />
+    <result column="TASK_IP" property="taskIp" jdbcType="VARCHAR" />
+    <result column="TASK_STATUS" property="taskStatus" jdbcType="VARCHAR" />
+    <result column="IDENTITY_TYPE" property="identityType" jdbcType="VARCHAR" />
+    <result column="IDENTITY_NO" property="identityNo" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="QUERY_FLAG" property="queryFlag" jdbcType="CHAR" />
+    <result column="QUERY_REASON" property="queryReason" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 获取任务状态集合 -->
+	<select id="selectBankTaskCallPlazeList" parameterType="java.util.Map" resultMap="requestMap">
+	SELECT UNIQUE_RELID, TASK_STATUS, IDENTITY_TYPE, IDENTITY_NO, NAME , QUERY_FLAG,QUERY_REASON
+		FROM(
+		SELECT UNIQUE_RELID, TASK_STATUS, IDENTITY_TYPE, IDENTITY_NO, NAME, QUERY_FLAG,QUERY_REASON
+		FROM BANK_TASK_CALL_PLAZE
+		WHERE　TASK_IP = #{taskIp,jdbcType=VARCHAR} AND TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+		ORDER BY QUERY_LEVEL, CRT_TIME
+	) WHERE ROWNUM &lt;= ${querySize}
+	</select>
+    <!-- 根据身份证号、身份证类型、姓名、任务类型、任务状态  获取人行相关参数 -->
+	<select id="selectBankParamList" resultType="java.util.Map">
+	SELECT  UNIQUE_RELID, SOURCE_ID, IDENTITY_TYPE, NAME, SOURCE, QUERY_FLAG
+		FROM BANK_TASK_CALL_PLAZE
+		WHERE　IDENTITY_NO = #{identityNo,jdbcType=VARCHAR} AND 
+		IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR} AND NAME = #{name,jdbcType=VARCHAR} AND 
+	    TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+		ORDER BY SOURCE, CRT_TIME 
+	</select>
+	<!-- 修改任务状态 -->
+	<update id="updateTaskStatus" >
+		UPDATE BANK_TASK_CALL_PLAZE
+		<set>
+	      <if test="updateStatus != null" >
+	         TASK_STATUS = #{updateStatus, jdbcType=VARCHAR},
+	      </if>
+	      <if test="lstOptUser != null" >
+	         LST_OPT_USER = #{lstOptUser, jdbcType=VARCHAR},
+	      </if>
+	      <if test="requestAddNum != null" >
+	         REQUEST_NUM = REQUEST_NUM + #{requestAddNum, jdbcType=INTEGER},
+	      </if>
+	      <if test="failureAddNum != null" >
+	         FAILURE_NUM = FAILURE_NUM + #{failureAddNum, jdbcType=INTEGER},
+	      </if>
+	         LST_OPT_TIME = SYSDATE
+	   </set>
+		 WHERE IDENTITY_NO = #{identityNo,jdbcType=VARCHAR} AND 
+		       IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR} AND 
+		       NAME = #{name,jdbcType=VARCHAR} AND TASK_IP = #{taskIp,jdbcType=VARCHAR} 
+		 <if test="currStatus != null" >
+	         AND TASK_STATUS = #{currStatus, jdbcType=VARCHAR}
+	     </if>
+	</update>
+	<!-- 插入人行对外任务表 -->
+	<insert id ="insertBankTaskCallPlaze" parameterType="java.util.Map">
+	  INSERT INTO BANK_TASK_CALL_PLAZE (ID, UNIQUE_RELID, SOURCE_ID,TASK_IP, 
+      TASK_STATUS, IDENTITY_TYPE, IDENTITY_NO, 
+      NAME, QUERY_FLAG, QUERY_LEVEL, SOURCE, 
+      REQUEST_NUM, FAILURE_NUM, LST_OPT_USER, 
+      LST_OPT_TIME, CRT_TIME)
+    VALUES (SYS_GUID(), SYS_GUID(), #{sourceId,jdbcType=VARCHAR},#{taskIp,jdbcType=VARCHAR}, 
+      #{taskStatus,jdbcType=VARCHAR}, #{identityType,jdbcType=VARCHAR}, #{identityNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{queryFlag,jdbcType=CHAR}, #{queryLevel,jdbcType=CHAR}, #{source,jdbcType=CHAR}, 
+      #{requestNum,jdbcType=DECIMAL}, #{failureNum,jdbcType=DECIMAL}, #{lstOptUser,jdbcType=VARCHAR}, 
+      SYSDATE, SYSDATE)
+	</insert>
+	<!-- 获取人行返回任务的状态集合 -->
+	<select id="selectBankBackTaskPlazeList" parameterType="java.util.Map"  resultType="java.util.Map">
+	SELECT SOURCE, UNIQUE_RELID, SOURCE_ID, IDENTITY_TYPE, IDENTITY_NO, NAME, TASK_STATUS
+		FROM(
+		SELECT SOURCE, UNIQUE_RELID, SOURCE_ID, IDENTITY_TYPE, IDENTITY_NO, NAME, TASK_STATUS
+		FROM BANK_TASK_CALL_PLAZE
+		WHERE　TASK_IP = #{taskIp,jdbcType=VARCHAR} AND TASK_STATUS ='2'
+		ORDER BY QUERY_LEVEL, CRT_TIME
+	) WHERE ROWNUM &lt;= #{querySize}
+	</select>
+	<!-- 删除人行对外控制表相关数据 -->
+	<delete id ="deleteBankTaskPlaze" >
+	 DELETE FROM BANK_TASK_CALL_PLAZE WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+	 AND TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+	</delete>
+	<!-- 修改人行对外控制表相关数据 -->
+	<update id="updateBankTaskPlaze">
+	 		UPDATE BANK_TASK_CALL_PLAZE
+		<set>
+	      <if test="updateStatus != null" >
+	         TASK_STATUS = #{updateStatus, jdbcType=VARCHAR},
+	      </if>
+	      <if test="lstOptUser != null" >
+	         LST_OPT_USER = #{lstOptUser, jdbcType=VARCHAR},
+	      </if>
+	      <if test="requestAddNum != null" >
+	         REQUEST_NUM = REQUEST_NUM + #{requestAddNum, jdbcType=INTEGER},
+	      </if>
+	      <if test="failureAddNum != null" >
+	         FAILURE_NUM = FAILURE_NUM + #{failureAddNum, jdbcType=INTEGER},
+	      </if>
+	         LST_OPT_TIME = SYSDATE
+	   </set>
+		 WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=VARCHAR}
+	     AND TASK_STATUS = #{currStatus, jdbcType=VARCHAR}
+	</update>
+	<!-- 保存人行对外任务到历史表(根据唯一关联id) -->
+	<insert id="insertBankTaskPlazeHis">
+	 INSERT INTO  BANK_TASK_CALL_PLAZE_HIS (ID, UNIQUE_RELID, SOURCE_ID, 
+      TASK_IP, TASK_STATUS, IDENTITY_TYPE, 
+      IDENTITY_NO, NAME, QUERY_FLAG, 
+      QUERY_LEVEL, SOURCE, REQUEST_NUM, 
+      FAILURE_NUM, LST_OPT_USER, LST_OPT_TIME, 
+      CRT_TIME,CURR_CRT_TIME,QUERY_REASON)
+      SELECT SYS_GUID(), UNIQUE_RELID, SOURCE_ID, 
+      TASK_IP, TASK_STATUS, IDENTITY_TYPE, 
+      IDENTITY_NO, NAME, QUERY_FLAG, 
+      QUERY_LEVEL, SOURCE, REQUEST_NUM, 
+      FAILURE_NUM, LST_OPT_USER, LST_OPT_TIME, 
+      CRT_TIME,SYSDATE,QUERY_REASON FROM BANK_TASK_CALL_PLAZE 
+      WHERE UNIQUE_RELID = #{uniqueRelid,jdbcType=CHAR}
+	</insert>
+	
+	<update id="updatePbocTrnSingleReview">
+		update pboc_trn_single_review set 
+		review_status = #{status,jdbcType=CHAR},
+		UPD_TIME = sysdate,
+		UPD_USER = 'PLAZE' 
+		where trn_id = #{sourceId,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectUserAndPwd" resultType="java.util.Map">
+		select QUERY_USER,QUERY_PASS from (
+    		select QUERY_USER,QUERY_PASS 
+    		from SYS_QUERY_AUTHORIZE ORDER BY CRT_TIME DESC ) 
+    		where rownum = 1
+	</select>
+	
+</mapper>

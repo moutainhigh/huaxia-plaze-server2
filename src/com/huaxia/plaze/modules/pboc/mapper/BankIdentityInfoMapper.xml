@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankIdentityInfoMapper">
+    <!-- 保存  基本概况信息段 PB01A  -->
+	<insert id="insertIdentityProfile" parameterType="PB01A">
+	INSERT INTO  BANK_IDENTITY_PROFILE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      GENDER, BIRTH_DAY, RESIDENCY_STATUS, 
+      DEGREE, WORK_STATUS, EMAIL, 
+      COMMUNICATION_ADDR, NATIONALITY, DOMICILE_ADDR, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+      #{PB01AD01,jdbcType=VARCHAR}, #{PB01AR01,jdbcType=VARCHAR}, #{PB01AD02,jdbcType=VARCHAR}, 
+      #{PB01AD03,jdbcType=VARCHAR}, #{PB01AD04,jdbcType=VARCHAR}, #{PB01AQ01,jdbcType=VARCHAR}, 
+      #{PB01AQ02,jdbcType=VARCHAR}, #{PB01AD05,jdbcType=VARCHAR}, #{PB01AQ03,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+    <!-- 保存手机号码信息段数据PB01B/PB01Bdata -->
+	<insert id="insertPhoneNumberData" parameterType="PB01Bdata">
+	INSERT INTO  BANK_PHONE_NUMBER_DATA (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, PHONE_COUNT, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PB01BS01,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	 <!-- 保存手机号码信息 PB01B/PB01BH -->
+	<insert id="insertPhoneNumberDetailList" parameterType="java.util.List">
+	 INSERT INTO BANK_PHONE_NUMBER_DETAIL (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, PHONE_NUM, 
+      UPDATED_DATE, CRT_TIME)
+		<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+	    	SYS_GUID(),#{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},#{item.PB01BQ01},
+			#{item.PB01BR01},SYSDATE
+		FROM DUAL
+		</foreach>
+	</insert>
+</mapper>

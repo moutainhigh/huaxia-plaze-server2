@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.hnair.mapper.HnairTrnRequestMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.hnair.domain.HnairTrnRequest">
+		INSERT INTO HNAIR_TRN_REQUEST (
+		 	  UUID,
+			  CRT_TIME,
+			  CRT_USER,
+			  TRN_ID,
+			  REQUEST_CHANNEL,
+			  QUERY_MODE,
+			  CERT_TYPE,
+			  CERT_NO,
+			  NAME,
+			  MOBILE,
+			  REQUESTBODY
+		) VALUES (
+		    #{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR},
+			#{requestBody, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+</mapper>

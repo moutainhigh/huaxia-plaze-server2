@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankAdministraAwardRecordMapper">
+	<!-- 保存行政奖励记录信息段 PF08A   -->
+	<insert id="insertAdministraAwardRecordInfo" parameterType="PF08A" >
+    INSERT INTO BANK_PUBLIC_ADMINAWARD (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+      REWARD_ORG, REWARD_CONTENT, 
+      EFFECT_DATE, END_DATE, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR},
+      #{PF08AQ01,jdbcType=VARCHAR}, #{PF08AQ02,jdbcType=VARCHAR}, 
+      #{PF08AR01,jdbcType=VARCHAR}, #{PF08AR02,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存行政奖励记录的标注及声明信息段 PF08Z/PF08Zdata -->
+	<insert id="insertAdministraAwardRecordPahLabelState" parameterType="PF08Zdata" >
+    INSERT INTO BANK_PAH_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PF08ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存行政奖励记录的标注及声明信息 PF08Z/PF08ZH 集合 -->
+	<insert id="insertAdministraAwardRecordPahLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_PAH_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+	  TYPE, CONTENT, 
+	  ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, 
+	  #{item.PF08ZD01,jdbcType=VARCHAR}, #{item.PF08ZQ01,jdbcType=VARCHAR}, 
+	  #{item.PF08ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

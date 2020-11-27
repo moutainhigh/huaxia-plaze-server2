@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankNoCreditTransactionMapper">
+   <!-- 保存  后付费业务欠费信息汇总信息单元数据 PC03data-->
+   <insert id="insertPostPayArreagageAum" parameterType="PC03data" >
+    INSERT INTO  BANK_POST_PAY_ARRGE_SUM (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, HFF_SERV_TYPE_COUNT, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PC030S01,jdbcType=VARCHAR}, 
+      SYSDATE)
+   </insert>
+   <!-- 保存后付费业务欠信息汇总信息 PC030H -->
+   <insert id="insertPostPayArreagageAumDel" parameterType="PC030H" >
+    INSERT INTO  BANK_POST_PAY_ARRGE_SUM_DEL (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, HFF_SERV_TYPE, 
+      ARREARAGE_COUNT, ARREARAGE_MONEY, CRT_TIME
+      )
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PC030D01,jdbcType=VARCHAR}, 
+      #{PC030S02,jdbcType=VARCHAR}, #{PC030J01,jdbcType=VARCHAR}, SYSDATE
+      )
+   </insert>
+  
+</mapper>

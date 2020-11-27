@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtBdiCisAciMapper">
+
+	<insert id="savePyPcrCrsCrtBdiCisAci"
+		parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtBdiCisAci">
+		INSERT INTO PY_PCR_CRS_CRT_BDI_CIS_ACI(
+		UUID,
+		CRT_TIME,
+		CRT_USER,
+		TRN_ID,
+		OBF_LAST_MONTH,
+		OOF_LAST_MONTH,
+		WF_LAST_MONTH,
+		WTF_LAST_MONTH,
+		PF_LAST_MONTH,
+		PTF_LAST_MONTH,
+		OF_LAST6_MONTH,
+		PF_LAST6_MONTH,
+		WF_LAST6_MONTH,
+		WTF_LAST6_MONTH,
+		OF_LAST12_MONTH,
+		PF_LAST12_MONTH,
+		WF_LAST12_MONTH,
+		PTF_LAST6_MONTH,
+		INFO_DATE,
+		APP_ID
+		) VALUES(
+		sys_guid(),
+		sysdate,
+		#{crtUser},
+		#{trnId},
+		#{overdraftBalanceForLastMonth},
+		#{overdraftOccurForLastMonth},
+		#{withdrawForLastMonth},
+		#{withdrawTimesForLastMonth},
+		#{purchaseForLastMonth},
+		#{purchaseTimesForLastMonth},
+		#{overdraftForLast6Month},
+		#{purchaseForLast6Month},
+		#{withdrawForLast6Month},
+		#{withdrawTimesForLast6Month},
+		#{overdraftForLast12Month},
+		#{purchaseForLast12Month},
+		#{withdrawForLast12Month},
+		#{purchaseTimesForLast6Month},
+		#{infoDate},
+		#{appId}
+		)
+	</insert>
+
+</mapper>

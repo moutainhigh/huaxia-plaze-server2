@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtHqiItmMapper">
+
+	<insert id="savePyPcrCrsCrtHqiItm"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtHqiItm">
+		INSERT INTO PY_PCR_CRS_CRT_HQI_ITM(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			UNIT,
+			QUERY_REASON,
+			UNIT_MEMBER_ID,
+			UNIT_MEMBER,
+			QUERY_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{unit},
+			#{queryReason},
+			#{unitMemberId},
+			#{unitMember},
+			#{queryDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

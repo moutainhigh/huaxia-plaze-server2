@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtSisz2BiMapper">
+
+	<insert id="savePyPcrCrsCrtSisz2Bi"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtSisz2Bi">
+		INSERT INTO PY_PCR_CRS_CRT_SISZ2_BI(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			NAME,
+			DOCUMENT_NO,
+			GENDER,
+			REGISTERE_STATUS,
+			INSURANCE_NO,
+			CURRENT_STATUS,
+			START_DATE,
+			INSURE_PAY,
+			FACT_INSURE_PAY,
+			LAST_UNIT_NAME,
+			UNIT_TYPE,
+			UNIT_PERSON_COUNT,
+			PLURALITY_COUNT,
+			ENDOWMENT_STATE,
+			HOSPITAL_STATE,
+			HOSPITAL_CATEGORY,
+			BEARING_STATE,
+			INJURE_STATE,
+			IDLENESS_STATE,
+			ENDOWMENT_AMOUNT,
+			HOSPITAL_AMOUNT,
+			INFO_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{name},
+			#{documentNo},
+			#{gender},
+			#{registeredStatus},
+			#{insuranceNo},
+			#{currentStatus},
+			#{startDate},
+			#{insurePay},
+			#{factInsurePay},
+			#{lastUnitName},
+			#{unitType},
+			#{unitPersonCount},
+			#{pluralityCount},
+			#{endowmentState},
+			#{hospitalState},
+			#{hospitalCategory},
+			#{bearingState},
+			#{injureState},
+			#{idlenessState},
+			#{endowmentAmount},
+			#{hospitalAmount},
+			#{infoDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

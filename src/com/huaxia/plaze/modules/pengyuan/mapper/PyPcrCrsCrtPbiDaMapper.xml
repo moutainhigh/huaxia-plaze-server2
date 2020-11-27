@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtPbiDaMapper">
+
+	<insert id="savePyPcrCrsCrtPbiDa"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtPbiDa">
+		INSERT INTO PY_PCR_CRS_CRT_PBI_DA(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			NAME,
+			DOCUMENT_NO,
+			DOCUMENT_TYPE,
+			COUNTRY,
+			GENDER,
+			BIRTHDAY,
+			INFO_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{name},
+			#{documentNo},
+			#{documentType},
+			#{country},
+			#{gender},
+			#{birthday},
+			#{infoDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

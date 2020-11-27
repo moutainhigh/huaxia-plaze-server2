@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyCrsCrtBsiMapper">
+
+	<insert id="savePyCrsCrtBsi"
+		parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyCrsCrtBsi">
+		INSERT INTO PY_CRS_CRT_BSI(
+		UUID,
+		CRT_TIME,
+		CRT_USER,
+		TRN_ID,
+		SUB_REPORT_TYPE,
+		SUB_REPORT_TYPE_COST,
+		TREAT_RESULT,
+		TREAT_ERROR_CODE,
+		ERROR_MESSAGE,
+		CREDITCARD_COUNT,
+		CREDITCARD_USING_COUNT,
+		CREDITCARD_FIRST_OPEN,
+		CA_COUNT,
+		CP_OVERDRAFT_AMOUNT,
+		C_OVERDRAFT_AMOUNT,
+		CO_LAST_OCCUR_AMOUNT,
+		HIGHEST_OVERDRAFT_AMOUNT,
+		WORST_CARD_STATUS,
+		LOAN_COUNT,
+		LOAN_BANK_COUNT,
+		LOAN_NOT_SQUARE_COUNT,
+		LOAN_FIRST_OPEN,
+		LOAN_ABNORMAL_COUNT,
+		LOAN_AMOUNT,
+		LOAN_BALANCE_AMOUNT,
+		LOAN_ARREAR_AMOUNT,
+		LOAN_HISTORY_ARREAR_TIMES,
+		WORST_LOAN_STATUS,
+		LOAN_HISTORY12_ARREAR_TIMES,
+		CREDITCARD_CANCEL_COUNT,
+		SETTLE_ACCOUNT_COUNT,
+		YEAR5OVER_DUE_ACCOUNT_COUNT,
+		APP_ID
+		) VALUES(
+		sys_guid(),
+		sysdate,
+		#{crtUser},
+		#{trnId},
+		#{subReportType},
+		#{subReportTypeCost},
+		#{treatResult},
+		#{treatErrorCode},
+		#{errorMessage},
+		#{creditcardCount},
+		#{creditcardUsingCount},
+		#{creditcardFirstOpen},
+		#{caCount},
+		#{cpOverdraftAmount},
+		#{cOverdraftAmount},
+		#{coLastOccurAmount},
+		#{highestOverdraftAmount},
+		#{worstCardStatus},
+		#{loanCount},
+		#{loanBankCount},
+		#{loanNotSquareCount},
+		#{loanFirstOpen},
+		#{loanAbnormalCount},
+		#{loanAmount},
+		#{loanBalanceAmount},
+		#{loanArrearAmount},
+		#{loanHistoryArrearTimes},
+		#{worstLoanStatus},
+		#{loanHistory12ArrearTimes},
+		#{creditcardCancelCount},
+		#{settleAccountCount},
+		#{year5overDueAccountCount},
+		#{appId}
+		)
+	</insert>
+
+</mapper>

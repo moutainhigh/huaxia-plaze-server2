@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongSpecialListForCellMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.bairong.domain.BRZXSpecialListForCell">
+		INSERT INTO BAIRONG_SPECIALLIST_CELL (
+			UUID, CRT_TIME, CRT_USER, FK_UUID,
+			SL_CELL_ABNORMAL, SL_CELL_PHONE_OVERDUE, SL_CELL_BANK_BAD, SL_CELL_BANK_OVERDUE, 
+			SL_CELL_BANK_FRAUD, SL_CELL_BANK_LOST, SL_CELL_BANK_REFUSE, SL_CELL_P2P_BAD, SL_CELL_P2P_OVERDUE, 
+			SL_CELL_P2P_FRAUD, SL_CELL_P2P_LOST, SL_CELL_P2P_REFUSE, SL_CELL_NBANK_P2P_BAD, 
+			SL_CELL_NBANK_P2P_OVERDUE, SL_CELL_NBANK_P2P_FRAUD, SL_CELL_NBANK_P2P_LOST, 
+			SL_CELL_NBANK_P2P_REFUSE, SL_CELL_NBANK_MC_BAD, SL_CELL_NBANK_MC_OVERDUE, SL_CELL_NBANK_MC_FRAUD, 
+			SL_CELL_NBANK_MC_LOST, SL_CELL_NBANK_MC_REFUSE, SL_CELL_NBANK_CA_BAD, SL_CELL_NBANK_CA_OVERDUE, 
+			SL_CELL_NBANK_CA_FRAUD, SL_CELL_NBANK_CA_LOST, SL_CELL_NBANK_CA_REFUSE, SL_CELL_NBANK_COM_BAD, 
+			SL_CELL_NBANK_COM_OVERDUE, SL_CELL_NBANK_COM_FRAUD, SL_CELL_NBANK_COM_LOST, 
+			SL_CELL_NBANK_COM_REFUSE, SL_CELL_NBANK_CF_BAD, SL_CELL_NBANK_CF_OVERDUE, SL_CELL_NBANK_CF_FRAUD, 
+			SL_CELL_NBANK_CF_LOST, SL_CELL_NBANK_CF_REFUSE, SL_CELL_NBANK_OTHER_BAD, 
+			SL_CELL_NBANK_OTHER_OVERDUE, SL_CELL_NBANK_OTHER_FRAUD, SL_CELL_NBANK_OTHER_LOST, SL_CELL_NBANK_OTHER_REFUSE,
+			SWIFT_NUMBER
+		) VALUES (
+			SYS_GUID(), SYSDATE, 
+			#{crtUser, jdbcType = VARCHAR},
+			#{pkUuid, jdbcType = VARCHAR},
+			#{slCellAbnormal, jdbcType = VARCHAR},
+			#{slCellPhoneOverdue, jdbcType = VARCHAR},
+			#{slCellBankBad, jdbcType = VARCHAR},
+			#{slCellBankOverdue, jdbcType = VARCHAR},
+			#{slCellBankFraud, jdbcType = VARCHAR},
+			#{slCellBankLost, jdbcType = VARCHAR},
+			#{slCellBankRefuse, jdbcType = VARCHAR},
+			#{slCellP2pBad, jdbcType = VARCHAR},
+			#{slCellP2pOverdue, jdbcType = VARCHAR},
+			#{slCellP2pFraud, jdbcType = VARCHAR},
+			#{slCellP2pLost, jdbcType = VARCHAR},
+			#{slCellP2pRefuse, jdbcType = VARCHAR},
+			#{slCellNbankP2pBad, jdbcType = VARCHAR},
+			#{slCellNbankP2pOverdue, jdbcType = VARCHAR},
+			#{slCellNbankP2pFraud, jdbcType = VARCHAR},
+			#{slCellNbankP2pLost, jdbcType = VARCHAR},
+			#{slCellNbankP2pRefuse, jdbcType = VARCHAR},
+			#{slCellNbankMcBad, jdbcType = VARCHAR},
+			#{slCellNbankMcOverdue, jdbcType = VARCHAR},
+			#{slCellNbankMcFraud, jdbcType = VARCHAR},
+			#{slCellNbankMcLost, jdbcType = VARCHAR},
+			#{slCellNbankMcRefuse, jdbcType = VARCHAR},
+			#{slCellNbankCaBad, jdbcType = VARCHAR},
+			#{slCellNbankCaOverdue, jdbcType = VARCHAR},
+			#{slCellNbankCaFraud, jdbcType = VARCHAR},
+			#{slCellNbankCaLost, jdbcType = VARCHAR},
+			#{slCellNbankCaRefuse, jdbcType = VARCHAR},
+			#{slCellNbankComBad, jdbcType = VARCHAR},
+			#{slCellNbankComOverdue, jdbcType = VARCHAR},
+			#{slCellNbankComFraud, jdbcType = VARCHAR},
+			#{slCellNbankComLost, jdbcType = VARCHAR},
+			#{slCellNbankComRefuse, jdbcType = VARCHAR},
+			#{slCellNbankCfBad, jdbcType = VARCHAR},
+			#{slCellNbankCfOverdue, jdbcType = VARCHAR},
+			#{slCellNbankCfFraud, jdbcType = VARCHAR},
+			#{slCellNbankCfLost, jdbcType = VARCHAR},
+			#{slCellNbankCfRefuse, jdbcType = VARCHAR},
+			#{slCellNbankOtherBad, jdbcType = VARCHAR},
+			#{slCellNbankOtherOverdue, jdbcType = VARCHAR},
+			#{slCellNbankOtherFraud, jdbcType = VARCHAR},
+			#{slCellNbankOtherLost, jdbcType = VARCHAR},
+			#{slCellNbankOtherRefuse, jdbcType = VARCHAR},
+			#{swiftNumber, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<select id="selectSpecialListForCellByFkUuid" resultType="com.huaxia.plaze.modules.bairong.domain.BRZXSpecialListForCell">
+		SELECT UUID, CRT_TIME, CRT_USER, FK_UUID,
+			SL_CELL_ABNORMAL, SL_CELL_PHONE_OVERDUE, SL_CELL_BANK_BAD, SL_CELL_BANK_OVERDUE, 
+			SL_CELL_BANK_FRAUD, SL_CELL_BANK_LOST, SL_CELL_BANK_REFUSE, SL_CELL_P2P_BAD, SL_CELL_P2P_OVERDUE, 
+			SL_CELL_P2P_FRAUD, SL_CELL_P2P_LOST, SL_CELL_P2P_REFUSE, SL_CELL_NBANK_P2P_BAD, 
+			SL_CELL_NBANK_P2P_OVERDUE, SL_CELL_NBANK_P2P_FRAUD, SL_CELL_NBANK_P2P_LOST, 
+			SL_CELL_NBANK_P2P_REFUSE, SL_CELL_NBANK_MC_BAD, SL_CELL_NBANK_MC_OVERDUE, SL_CELL_NBANK_MC_FRAUD, 
+			SL_CELL_NBANK_MC_LOST, SL_CELL_NBANK_MC_REFUSE, SL_CELL_NBANK_CA_BAD, SL_CELL_NBANK_CA_OVERDUE, 
+			SL_CELL_NBANK_CA_FRAUD, SL_CELL_NBANK_CA_LOST, SL_CELL_NBANK_CA_REFUSE, SL_CELL_NBANK_COM_BAD, 
+			SL_CELL_NBANK_COM_OVERDUE, SL_CELL_NBANK_COM_FRAUD, SL_CELL_NBANK_COM_LOST, 
+			SL_CELL_NBANK_COM_REFUSE, SL_CELL_NBANK_CF_BAD, SL_CELL_NBANK_CF_OVERDUE, SL_CELL_NBANK_CF_FRAUD, 
+			SL_CELL_NBANK_CF_LOST, SL_CELL_NBANK_CF_REFUSE, SL_CELL_NBANK_OTHER_BAD, 
+			SL_CELL_NBANK_OTHER_OVERDUE, SL_CELL_NBANK_OTHER_FRAUD, SL_CELL_NBANK_OTHER_LOST, SL_CELL_NBANK_OTHER_REFUSE,
+			SWIFT_NUMBER
+		FROM BAIRONG_SPECIALLIST_CELL WHERE FK_UUID = #{fkUuid, jdbcType = VARCHAR}
+	</select>
+	
+</mapper>

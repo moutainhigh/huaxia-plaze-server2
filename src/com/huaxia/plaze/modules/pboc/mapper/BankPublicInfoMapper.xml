@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankPublicInfoMapper">
+   <!-- 保存公共信息概要信息数据 PC04/pc04Data -->
+   <insert id="insertPublicInfoData" parameterType="PC04data" >
+    INSERT INTO BANK_PUBLIC_INFO_DATA (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, GGXN_TYPE_COUNT, 
+      CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PC040S01,jdbcType=VARCHAR}, 
+      SYSDATE)
+   </insert>
+   <!-- 保存公共信息概要信息 PC040H 集合 -->
+   <insert id="insertPublicInfoDelList" parameterType="java.util.List" >
+    INSERT INTO BANK_PUBLIC_INFO_DEL (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+     GGXN_TYPE, RECORD_COUNT, INVOLVE_MONEY, 
+     CRT_TIME
+      )
+      <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+	    	SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, 
+	    	#{item.PC040D01,jdbcType=VARCHAR},#{item.PC040S02,jdbcType=VARCHAR}, #{item.PC040J01,jdbcType=VARCHAR}, 
+	    	SYSDATE
+		FROM DUAL
+	  </foreach>
+   </insert>
+</mapper>

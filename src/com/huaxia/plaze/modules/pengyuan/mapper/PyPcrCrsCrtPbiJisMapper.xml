@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtPbiJisMapper">
+
+	<insert id="savePyPcrCrsCrtPbiJis"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtPbiJis">
+		INSERT INTO PY_PCR_CRS_CRT_PBI_JIS(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			EMPLOYER,
+			EMPLOYER_TYPE,
+			OCCUPATION_TYPE,
+			POSITION_TYPE,
+			TITLE_TYPE,
+			INFOR_UNIT,
+			INFO_DATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{employer},
+			#{employerType},
+			#{occupationType},
+			#{positionType},
+			#{titleType},
+			#{inforUnit},
+			#{infoDate},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

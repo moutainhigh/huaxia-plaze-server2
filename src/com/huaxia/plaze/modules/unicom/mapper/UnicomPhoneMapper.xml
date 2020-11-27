@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.unicom.mapper.UnicomPhoneMapper">
+	
+	<insert id="insertUnicomPhoneTrnRequest" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomPhoneTrnRequest">
+		INSERT INTO UNICOM_PHONE_TRN_REQUEST (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			CERT_TYPE,
+			CERT_NO,
+			NAME,
+			MOBILE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+	<insert id="insertUnicomPhoneMsgResponse" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomPhoneMsgResponse">
+		INSERT INTO UNICOM_PHONE_MSG_RESPONSE (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			MESSAGE_BODY
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{messageBody, jdbcType = CLOB}
+		)	
+	</insert>
+	
+	<insert id="insertUnicomPhone" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomPhone">
+		INSERT INTO UNICOM_PHONE_DATA (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			STATUS,
+			CODE,
+			ERROR_DESC,
+			CHECK_RESULT,
+			CARRIER,
+			CERT_NO
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{status, jdbcType = CHAR},
+			#{code, jdbcType = VARCHAR},
+			#{errorDesc, jdbcType = VARCHAR},
+			#{checkResult, jdbcType = VARCHAR},
+			#{carrier, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+</mapper>

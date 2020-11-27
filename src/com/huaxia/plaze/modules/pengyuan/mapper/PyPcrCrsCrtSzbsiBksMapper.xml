@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtSzbsiBksMapper">
+
+	<insert id="savePyPcrCrsCrtSzbsiBks"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtSzbsiBks">
+		INSERT INTO PY_PCR_CRS_CRT_SZBSI_BKS(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			LOAN_COUNT,
+			LOAN_NOT_SQUARE_COUNT,
+			LOAN_AMOUNT,
+			LOAN_BALANCE_AMOUNT,
+			LOAN_ARREAR_AMOUNT,
+			LOAN_HISTORY_ARREAR_TIMES,
+			CREDITCARD_COUNT,
+			CREDITCARD_USING_COUNT,
+			CP_OVERDRAFT_AMOUNT,
+			CREDITCARD_OVERDRAFT_AMOUNT,
+			CREDITCARD_FIRST_OPEN,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{loanCount},
+			#{loanNotSquareCount},
+			#{loanAmount},
+			#{loanBalanceAmount},
+			#{loanArrearAmount},
+			#{loanHistoryArrearTimes},
+			#{creditcardCount},
+			#{creditcardUsingCount},
+			#{cpOverdraftAmount},
+			#{creditcardOverdraftAmount},
+			#{creditcardFirstOpen},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

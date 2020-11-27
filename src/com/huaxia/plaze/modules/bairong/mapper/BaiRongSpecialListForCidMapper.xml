@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongSpecialListForCidMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.bairong.domain.BRZXSpecialListForCid">
+		INSERT INTO BAIRONG_SPECIALLIST_CID (
+			UUID, CRT_TIME, CRT_USER, FK_UUID,
+			SL_ID_ABNORMAL, SL_ID_PHONE_OVERDUE, SL_ID_COURT_BAD, SL_ID_COURT_EXECUTED, 
+			SL_ID_BANK_BAD, SL_ID_BANK_OVERDUE, SL_ID_BANK_FRAUD, SL_ID_BANK_LOST, SL_ID_BANK_REFUSE, 
+			SL_ID_P2P_BAD, SL_ID_P2P_OVERDUE, SL_ID_P2P_FRAUD, SL_ID_P2P_LOST, SL_ID_P2P_REFUSE, 
+			SL_ID_NBANK_P2P_BAD, SL_ID_NBANK_P2P_OVERDUE, SL_ID_NBANK_P2P_FRAUD, SL_ID_NBANK_P2P_LOST, 
+			SL_ID_NBANK_P2P_REFUSE, SL_ID_NBANK_MC_BAD, SL_ID_NBANK_MC_OVERDUE, SL_ID_NBANK_MC_FRAUD, 
+			SL_ID_NBANK_MC_LOST, SL_ID_NBANK_MC_REFUSE, SL_ID_NBANK_CA_BAD, SL_ID_NBANK_CA_OVERDUE, 
+			SL_ID_NBANK_CA_FRAUD, SL_ID_NBANK_CA_LOST, SL_ID_NBANK_CA_REFUSE, SL_ID_NBANK_COM_BAD, 
+			SL_ID_NBANK_COM_OVERDUE, SL_ID_NBANK_COM_FRAUD, SL_ID_NBANK_COM_LOST, SL_ID_NBANK_COM_REFUSE, 
+			SL_ID_NBANK_CF_BAD, SL_ID_NBANK_CF_OVERDUE, SL_ID_NBANK_CF_FRAUD, SL_ID_NBANK_CF_LOST, 
+			SL_ID_NBANK_CF_REFUSE, SL_ID_NBANK_OTHER_BAD, SL_ID_NBANK_OTHER_OVERDUE, SL_ID_NBANK_OTHER_FRAUD, 
+			SL_ID_NBANK_OTHER_LOST, SL_ID_NBANK_OTHER_REFUSE,
+			SWIFT_NUMBER 
+		) VALUES (
+			SYS_GUID(), SYSDATE, 
+			#{crtUser, jdbcType = VARCHAR},
+			#{pkUuid, jdbcType = VARCHAR},
+			#{slIdAbnormal, jdbcType = VARCHAR},
+			#{slIdPhoneOverdue, jdbcType = VARCHAR},
+			#{slIdCourtBad, jdbcType = VARCHAR},
+			#{slIdCourtExecuted, jdbcType = VARCHAR},
+			#{slIdBankBad, jdbcType = VARCHAR},
+			#{slIdBankOverdue, jdbcType = VARCHAR},
+			#{slIdBankFraud, jdbcType = VARCHAR},
+			#{slIdBankLost, jdbcType = VARCHAR},
+			#{slIdBankRefuse, jdbcType = VARCHAR},
+			#{slIdP2pBad, jdbcType = VARCHAR},
+			#{slIdP2pOverdue, jdbcType = VARCHAR},
+			#{slIdP2pFraud, jdbcType = VARCHAR},
+			#{slIdP2pLost, jdbcType = VARCHAR},
+			#{slIdP2pRefuse, jdbcType = VARCHAR},
+			#{slIdNbankP2pBad, jdbcType = VARCHAR},
+			#{slIdNbankP2pOverdue, jdbcType = VARCHAR},
+			#{slIdNbankP2pFraud, jdbcType = VARCHAR},
+			#{slIdNbankP2pLost, jdbcType = VARCHAR},
+			#{slIdNbankP2pRefuse, jdbcType = VARCHAR},
+			#{slIdNbankMcBad, jdbcType = VARCHAR},
+			#{slIdNbankMcOverdue, jdbcType = VARCHAR},
+			#{slIdNbankMcFraud, jdbcType = VARCHAR},
+			#{slIdNbankMcLost, jdbcType = VARCHAR},
+			#{slIdNbankMcRefuse, jdbcType = VARCHAR},
+			#{slIdNbankCaBad, jdbcType = VARCHAR},
+			#{slIdNbankCaOverdue, jdbcType = VARCHAR},
+			#{slIdNbankCaFraud, jdbcType = VARCHAR},
+			#{slIdNbankCaLost, jdbcType = VARCHAR},
+			#{slIdNbankCaRefuse, jdbcType = VARCHAR},
+			#{slIdNbankComBad, jdbcType = VARCHAR},
+			#{slIdNbankComOverdue, jdbcType = VARCHAR},
+			#{slIdNbankComFraud, jdbcType = VARCHAR},
+			#{slIdNbankComLost, jdbcType = VARCHAR},
+			#{slIdNbankComRefuse, jdbcType = VARCHAR},
+			#{slIdNbankCfBad, jdbcType = VARCHAR},
+			#{slIdNbankCfOverdue, jdbcType = VARCHAR},
+			#{slIdNbankCfFraud, jdbcType = VARCHAR},
+			#{slIdNbankCfLost, jdbcType = VARCHAR},
+			#{slIdNbankCfRefuse, jdbcType = VARCHAR},
+			#{slIdNbankOtherBad, jdbcType = VARCHAR},
+			#{slIdNbankOtherOverdue, jdbcType = VARCHAR},
+			#{slIdNbankOtherFraud, jdbcType = VARCHAR},
+			#{slIdNbankOtherLost, jdbcType = VARCHAR},
+			#{slIdNbankOtherRefuse, jdbcType = VARCHAR},
+			#{swiftNumber, jdbcType = VARCHAR}
+		)
+	</insert>
+     
+</mapper>

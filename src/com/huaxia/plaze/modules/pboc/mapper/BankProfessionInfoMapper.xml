@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankProfessionInfoMapper">
+	<!-- 职业信息单元 PB04  集合 -->
+	<insert id="insertProfessionInfoList" parameterType="java.util.List">
+	  INSERT INTO BANK_PROFESSION_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      EMPLOYMENT_STATUS, COMPANY, UNIT_CHARACTER, 
+      INDUSTRY_TYPE, COMP_ADDR, UNIT_PHONE, 
+      JOB, OCCUPATION_CODE, TECHNICAL_TITLE, 
+      CUR_COMP_WORK_STAT_Y, INFO_UPD_TIME, CRT_TIME
+      )
+	 <foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+			SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},
+			#{item.PB040D01}, #{item.PB040Q01}, #{item.PB040D02},
+			#{item.PB040D03}, #{item.PB040Q02}, #{item.PB040Q03}, 
+			#{item.PB040D04}, #{item.PB040D05}, #{item.PB040D06}, 
+			#{item.PB040R01}, #{item.PB040R02},	SYSDATE
+		FROM DUAL
+	</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorDescreditCountMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.tongdun.domain.MulBorDescreditCount">
+		INSERT INTO MULBOR_DESCREDIT_COUNT (
+			  UUID ,
+			  CRT_TIME,
+			  CRT_USER,
+			  REF_UUID ,
+			  APP_ID  ,
+		      TRN_ID,
+			  TYPE   ,
+			  DESCRIPTION   ,
+			  DISCREDIT_TIMES ,
+			  PLATFORM_COUNT ,
+			  
+			  OVERDUE_AMOUNT_RANGE,
+			  OVERDUE_COUNT ,
+			  OVERDUE_DAY_RANGE ,
+			  OVERDUE_TIME
+		) VALUES (
+			#{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			#{refUuid, jdbcType = CHAR},
+			#{appId, jdbcType = CHAR},
+			#{trnId, jdbcType = CHAR},
+			#{type, jdbcType = VARCHAR},
+			#{description, jdbcType = VARCHAR},
+			#{discreditTimes, jdbcType = INTEGER},
+			#{platformCount, jdbcType = INTEGER},
+			
+			#{overdueAmountRange, jdbcType = VARCHAR},
+			#{overdueCount, jdbcType = INTEGER},
+			#{overdueDayRange, jdbcType = VARCHAR},
+			#{overdueTime, jdbcType = VARCHAR}
+		
+		)
+	</insert>
+	
+</mapper>

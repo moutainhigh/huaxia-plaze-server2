@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.datasource.mapper.DataSourceMapper">
+
+	<resultMap id="result_selectConfigurationByParams" type="java.util.Map">
+		<result column="MAX_COUNT" property="MAX_QUERY_COUNT" jdbcType="INTEGER" />
+		<result column="START_DATE" property="QUERY_START_DATE" jdbcType="VARCHAR" />
+		<result column="END_DATE" property="QUERY_END_DATE" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectConfigurationByParams" parameterType="java.util.Map"
+		resultMap="result_selectConfigurationByParams">
+		SELECT MAX_COUNT, TO_CHAR(START_DATE,'YYYY-MM-DD HH24:MI:SS') START_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD HH24:MI:SS') END_DATE
+		  FROM CONF_QUERY_COUNT
+		 WHERE SOURCE_CODE = #{sourceCode}
+		   AND CHANNEL_CODE = #{channelCode}
+	</select>
+	
+	<select id="selectChannelCodeByName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT CHANNEL_CODE FROM SYS_CHANNEL WHERE CHANNEL_NAME = #{channelName}
+	</select>
+	
+	<parameterMap type="java.util.Map" id="parameter_callDataSourceCount">
+		<parameter property="source_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="channel_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="v_set" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="end_num" mode="OUT" jdbcType="NUMERIC"/>
+	</parameterMap>
+
+	<select id="callDataSourceCount" parameterMap="parameter_callDataSourceCount" statementType="CALLABLE">
+		CALL DS_BAIRONG_000700_COUNT(?,?,?,?)
+	</select>
+
+</mapper>

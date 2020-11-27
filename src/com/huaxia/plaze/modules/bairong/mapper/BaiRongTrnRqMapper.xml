@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongTrnRqMapper">
+
+	<insert id="insertRqInfo" parameterType="java.util.Map">
+		INSERT INTO BAIRONG_TRN_REQUEST (
+			UUID, CRT_TIME, CRT_USER,TRN_ID, REQUEST_CHANNEL, 
+			QUERY_MODE, CERT_TYPE, CERT_NO, NAME, MOBILE
+		) VALUES (
+			SYS_GUID(),SYSDATE,'PLAZE',
+			#{trnId, jdbcType = VARCHAR},
+			#{rqChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = VARCHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR}
+		)
+	</insert>
+     
+    <select id="selectTrnIdByPkUuid" parameterType="java.lang.String">
+    SELECT TRN_ID FROM BAIRONG_TRN_REQUEST 
+    	WHERE
+    	PK_UUID=#{pkUuid, jdbcType = VARCHAR}
+    </select>
+</mapper>

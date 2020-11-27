@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtSzbsiIsMapper">
+
+	<insert id="savePyPcrCrsCrtSzbsiIs"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtSzbsiIs">
+		INSERT INTO PY_PCR_CRS_CRT_SZBSI_IS(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			INSURE_PAY,
+			FACT_INSURE_PAY,
+			CURRENT_STATUS,
+			INFO_DATE,
+			LAST_UNIT_NAME,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{insurePay},
+			#{factInsurePay},
+			#{currentStatus},
+			#{infoDate},
+			#{lastUnitName},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

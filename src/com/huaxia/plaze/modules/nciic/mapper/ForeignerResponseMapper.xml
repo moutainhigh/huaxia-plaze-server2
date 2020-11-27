@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.nciic.mapper.ForeignerResponseMapper">
+	<insert id="insertInfo"  parameterType="com.huaxia.plaze.modules.nciic.domain.NciicForeignerInfo">
+		INSERT INTO NCIIC_FOREIGNER_INFO (
+			  UUID ,
+			  TRN_ID ,
+			  CRT_TIME ,
+			  CRT_USER ,
+			  SBM ,
+			  FSD ,
+			  YWLX  ,
+			  ZJHM ,
+			  XM ,
+			  CSRQ ,
+			  ZJYXQZ ,
+			  ZXBBH ,
+			  RESULT_CODE ,
+			  ERROR_CODE,
+			  ERROR_MESSAGE ,
+			  ERROR_MESSAGE_COL,
+			  CERT_TYPE
+		) VALUES (
+			SYS_GUID(),
+			#{trnId, jdbcType = CHAR},
+			SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{sbm, jdbcType = VARCHAR},
+			#{fsd, jdbcType = VARCHAR},
+			#{ywlx, jdbcType = VARCHAR},
+			#{zjhm, jdbcType = VARCHAR},
+			#{xm, jdbcType = VARCHAR},
+			#{csrq, jdbcType = VARCHAR},
+			#{zjyxqr, jdbcType = VARCHAR},
+			#{zxbbh, jdbcType = VARCHAR},
+			#{resultCode, jdbcType = VARCHAR},
+			#{errorCode, jdbcType = VARCHAR},
+			#{errorMessage, jdbcType = VARCHAR},
+			#{errorMessageCol, jdbcType = VARCHAR},
+			#{certType, jdbcType = VARCHAR}
+		)
+	</insert>
+	<insert id="insertResponse"  parameterType="com.huaxia.plaze.modules.nciic.domain.NciicForeignerResponse">
+		INSERT INTO NCIIC_FOREIGNER_RESPONSE (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,
+			MESSAGE_BODY
+		) VALUES (
+			sys_guid(),
+			SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{messageBody, jdbcType = VARCHAR}
+			)
+	</insert>
+	
+	<select id="selectResponseByRequest" parameterType="java.util.Map" resultType="java.lang.String">
+	   select * from (
+   select * from NCIIC_FOREIGNER_RESPONSE r where r.trn_id in(
+          select trn_id from NCIIC_FOREIGNER_REQUEST t where t.cert_no =CERT_NO=#{certNo,jdbcType = VARCHAR} and t.name = #{name,jdbcType = VARCHAR}  and t.BIRTH =#{birth,jdbcType = VARCHAR}  and t.EXPIRY_DATE =#{expiryDate,jdbcType = VARCHAR} 
+  ) order by crt_time desc
+  ) where ROWNUM = '1';
+	</select>
+</mapper>

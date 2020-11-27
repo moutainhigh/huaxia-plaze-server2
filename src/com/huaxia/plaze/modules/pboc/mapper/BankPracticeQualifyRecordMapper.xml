@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankPracticeQualifyRecordMapper">
+	<!-- 保存执业资格记录信息段 PF07A   -->
+	<insert id="insertPracticeQualifyRecordInfo" parameterType="PF07A" >
+    INSERT INTO BANK_PUBLIC_COMPETENCE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+      COMPETENCY_NAME, AWARD_ORG,
+      RANK, ORG_PLACE,
+      AWARD_DATE, EXP_DATE, REVOKE_DATE, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR},
+      #{PF07AQ01,jdbcType=VARCHAR}, #{PF07AQ02,jdbcType=VARCHAR}, 
+      #{PF07AD01,jdbcType=VARCHAR}, #{PF07AD02,jdbcType=VARCHAR}, 
+      #{PF07AR01,jdbcType=VARCHAR}, #{PF07AR02,jdbcType=VARCHAR}, #{PF07AR03,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存执业资格记录的标注及声明信息段 PF07Z/PF07Zdata -->
+	<insert id="insertPracticeQualifyRecordPpqLabelState" parameterType="PF07Zdata" >
+    INSERT INTO BANK_PPQ_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PF07ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存执业资格记录的标注及声明信息 PF07Z/PF07ZH 集合 -->
+	<insert id="insertPracticeQualifyRecordPpqLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_PPQ_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+	  TYPE, CONTENT, 
+	  ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, 
+	  #{item.PF07ZD01,jdbcType=VARCHAR}, #{item.PF07ZQ01,jdbcType=VARCHAR},
+	  #{item.PF07ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

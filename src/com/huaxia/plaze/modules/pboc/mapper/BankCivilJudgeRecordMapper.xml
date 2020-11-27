@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankCivilJudgeRecordMapper">
+   <!-- 保存 民事判决记录信息段 PF02A  -->
+  <insert id="insertCivilJudgeRecordInfo" parameterType="PF02A" >
+    INSERT INTO BANK_PUBLIC_CIVJUDGE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      REG_COURT, CASE_REASON, 
+      REG_DATE, CLOSE_CASE_WAY, JUDG_MEDIATE_RST, 
+      JUDG_MEDIATE_EFFCT_DT, LAW_OBJECT, LAW_OBJECT_AMT, 
+      RELATE_ID,CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+      #{PF02AQ01,jdbcType=VARCHAR}, #{PF02AQ02,jdbcType=VARCHAR}, 
+      #{PF02AR01,jdbcType=VARCHAR}, #{PF02AD01,jdbcType=VARCHAR}, #{PF02AQ03,jdbcType=VARCHAR}, 
+      #{PF02AR02,jdbcType=VARCHAR}, #{PF02AQ04,jdbcType=VARCHAR}, #{PF02AJ01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR},SYSDATE)
+  </insert>
+	<!-- 保存 民事判决记录的标注及声明信息段PF02Z/PF02Zdata -->
+	<insert id="insertCivilJudgeRecordPcjLabelState" parameterType="PF02Zdata" >
+    INSERT INTO BANK_PCJ_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PF02ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存 民事判决记录的 标注及声明信息 PF02Z/PF02ZH集合 -->
+	<insert id="insertCivilJudgeRecordPcjLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_PCJ_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID,
+	  TYPE, CONTENT, 
+      ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	   SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},
+	   #{item.PF02ZD01,jdbcType=VARCHAR}, #{item.PF02ZQ01,jdbcType=VARCHAR},
+       #{item.PF02ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

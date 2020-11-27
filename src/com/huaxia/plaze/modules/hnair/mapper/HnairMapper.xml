@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.hnair.mapper.HnairMapper">
+
+  <resultMap id="BaseResultMap" type="com.huaxia.plaze.modules.hnair.domain.Hnair">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="APP_ID" jdbcType="CHAR" property="appId" />
+    <result column="ERRORCODE" jdbcType="VARCHAR" property="errorcode" />
+    <result column="ERRORMESSAGE" jdbcType="VARCHAR" property="errormessage" />
+    <result column="STID" jdbcType="VARCHAR" property="stid" />
+    <result column="CTID" jdbcType="VARCHAR" property="ctid" />
+    <result column="EXTENDSINFO" jdbcType="VARCHAR" property="extendsinfo" />
+    <result column="VIPFLG" jdbcType="VARCHAR" property="vipflg" />
+    <result column="CID" jdbcType="VARCHAR" property="cid" />
+    <result column="FLYCNT" jdbcType="DECIMAL" property="flycnt" />
+    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
+    <result column="RESRV1" jdbcType="VARCHAR" property="resrv1" />
+    <result column="RESRV2" jdbcType="VARCHAR" property="resrv2" />
+    <result column="RESRV3" jdbcType="VARCHAR" property="resrv3" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+  </resultMap>
+
+  <insert id="insertSeaAirData" parameterType="com.huaxia.plaze.modules.hnair.domain.Hnair">
+    INSERT INTO HNAIR_SIEBEL_MEMBER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        UUID,
+      <if test="errorcode != null">
+        ERROR_CODE,
+      </if>
+      <if test="errormessage != null">
+        ERROR_MESSAGE,
+      </if>
+      <if test="stid != null">
+        STID,
+      </if>
+      <if test="ctid != null">
+        CTID,
+      </if>
+      <if test="extendsinfo != null">
+        EXTENDS_INFO,
+      </if>
+      <if test="vipflg != null">
+        VIP_FLG,
+      </if>
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="flycnt != null">
+        FLY_CNT,
+      </if>
+      <if test="grade != null">
+        GRADE,
+      </if>
+      <if test="resrv1 != null">
+        RESRV1,
+      </if>
+      <if test="resrv2 != null">
+        RESRV2,
+      </if>
+      <if test="resrv3 != null">
+        RESRV3,
+      </if>
+        CRT_TIME,CRT_USER,TRN_ID,CERT_NO
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+       sys_guid(),
+      <if test="errorcode != null">
+        #{errorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errormessage != null">
+        #{errormessage,jdbcType=VARCHAR},
+      </if>
+      <if test="stid != null">
+        #{stid,jdbcType=VARCHAR},
+      </if>
+      <if test="ctid != null">
+        #{ctid,jdbcType=VARCHAR},
+      </if>
+      <if test="extendsinfo != null">
+        #{extendsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="vipflg != null">
+        #{vipflg,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="flycnt != null">
+        #{flycnt,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="resrv1 != null">
+        #{resrv1,jdbcType=VARCHAR},
+      </if>
+      <if test="resrv2 != null">
+        #{resrv2,jdbcType=VARCHAR},
+      </if>
+      <if test="resrv3 != null">
+        #{resrv3,jdbcType=VARCHAR},
+      </if>
+        SYSDATE,#{crtUser, jdbcType = VARCHAR}, #{trnId, jdbcType = CHAR},#{certNo, jdbcType = VARCHAR}
+    </trim>
+  </insert>
+  
+  <select id="selectCountByAppId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM OPAS_SEA_AIR_DATA  WHERE  APP_ID = #{appId, jdbcType = CHAR}
+  </select>
+  
+</mapper>

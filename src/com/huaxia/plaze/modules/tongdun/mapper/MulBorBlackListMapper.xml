@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorBlackListMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.tongdun.domain.MulBorBlackList">
+		INSERT INTO MULBOR_BLACK_LIST (
+			  UUID,
+			  CRT_TIME,
+			  CRT_USER,
+			  REF_UUID,
+			  APP_ID  ,
+		      TRN_ID,
+		      TYPE ,
+			  DESCRIPTION,
+			  HIT_TYPE_DISPLAY_NAME,
+			  FRAUD_TYPE_DISPLAY_NAME,
+		  
+			  CASE_CODE   ,
+			  EXECUTE_COURT   ,
+			  CASE_DATE  ,
+			  GENDER    ,
+			  CARRY_OUT   ,
+			  EXECUTED_NAME  ,
+			  FRAUD_TYPE  ,
+			  SPECIFIC_CIRCUMSTANCES ,
+			  EXECUTE_SUBJECT  ,
+			  EXECUTE_STATUS ,
+			  EVIDENCE_COURT ,
+			  TERM_DUTY ,
+			  PROVINCE  ,
+			  EXECUTE_CODE ,
+			  VALUE    ,
+			  AGE       ,
+			  EVIDENCE_TIME
+
+		) VALUES (
+			#{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			#{refUuid, jdbcType = CHAR},
+			#{appId, jdbcType = CHAR},
+			#{trnId, jdbcType = CHAR},
+			#{type, jdbcType = VARCHAR},
+			#{description, jdbcType = VARCHAR},
+			#{hitTypeDisplayName, jdbcType = VARCHAR},
+			substr(#{fraudTypeDisplayName, jdbcType = VARCHAR},1,4000),
+			
+			#{caseCode, jdbcType = VARCHAR},
+			#{executeCourt, jdbcType = VARCHAR},
+			#{caseDate, jdbcType = VARCHAR},
+			#{gender, jdbcType = VARCHAR},
+			#{carryOut, jdbcType = VARCHAR},
+			#{executedName, jdbcType = VARCHAR},
+			#{fraudType, jdbcType = VARCHAR},
+			#{specificCircumstances, jdbcType = VARCHAR},
+			#{executeSubjec, jdbcType = VARCHAR},
+			#{executeStatus, jdbcType = VARCHAR},
+			#{evidenceCoutt, jdbcType = VARCHAR},
+			substr(#{termDuty, jdbcType = VARCHAR},1,4000),
+			#{province, jdbcType = VARCHAR},
+			#{executeCode, jdbcType = VARCHAR},
+			#{value, jdbcType = VARCHAR},
+			#{age, jdbcType = VARCHAR},
+			#{evidenceTime, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+</mapper>

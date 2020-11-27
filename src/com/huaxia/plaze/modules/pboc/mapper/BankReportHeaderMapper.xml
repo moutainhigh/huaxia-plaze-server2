@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankReportHeaderMapper">
+	<!-- 保存 报告标识信息段 PA01A  -->
+	<insert id="insertReportMarkInfo" parameterType="PA01A">
+	  INSERT INTO BANK_REPORT_MARK_INFO (UUID, IDENTITY_CARD_NO, 
+	  UNIQUE_RELID, SOURCE,
+      REPORT_NO, REPORT_TIME, CRT_TIME
+      )
+      VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, 
+      #{uniqueRelid,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR},
+      #{PA01AI01,jdbcType=VARCHAR}, #{PA01AR01,jdbcType=VARCHAR}, SYSDATE
+      )
+	</insert>
+	<!-- 保存 本次查询请求信息段  PA01B  -->
+	<insert id="insertCurQueryRequest" parameterType="PA01B">
+	  INSERT INTO BANK_CUR_QUERY_REQUEST (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      QUERYED_NAME, QUERYED_CERT_TYPE, QUERYED_CERT_NO, 
+      QUERY_ORG, QRY_REASON, CRT_TIME
+      )
+      VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+      #{PA01BQ01,jdbcType=VARCHAR}, #{PA01BD01,jdbcType=VARCHAR}, #{PA01BI01,jdbcType=VARCHAR}, 
+      #{PA01BI02,jdbcType=VARCHAR}, #{PA01BD02,jdbcType=VARCHAR}, SYSDATE
+      )
+	</insert>
+	<!--  其他身份标识信息段数据PA01C/PA01Cdata -->
+	<insert id="insertOtherIdentityMark" parameterType="PA01Cdata">
+	 INSERT INTO BANK_OTHER_IDENTITY_MARK (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, MARK_COUNT, 
+      CRT_TIME)
+     VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PA01CS01,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	<!-- 身份信息PA01C/PA01CH 集合 -->
+	<insert id="insertIdentityDataList" parameterType="java.util.List">
+	  INSERT INTO BANK_IDENTITY_DATA (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, IDENTITY_TYPE, 
+      IDENTITY_NUM, CRT_TIME)
+		<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+	    	SYS_GUID(),#{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR},#{item.PA01CD01},
+			#{item.PA01CI01},SYSDATE
+		FROM DUAL
+		</foreach>
+	</insert>
+	<!--插入防欺诈警示信息段  PA01D  -->
+	<insert id="insertCheatProofCaution" parameterType="PA01D">
+	  INSERT INTO BANK_CHEAT_PROOF_CAUTION (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, MARK, 
+      PHONE, EFFECTIVE_DATE, DEADLINE, 
+      CRT_TIME)
+      values (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PA01DQ01,jdbcType=VARCHAR}, 
+      #{PA01DQ02,jdbcType=VARCHAR}, #{PA01DR01,jdbcType=VARCHAR}, #{PA01DR02,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	<!--异议提示信息段  PA01E -->
+	<insert id="insertDissentHint" parameterType="PA01E">
+	 INSERT INTO  BANK_DISSENT_HINT (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, DISSENT_COUNT, 
+      CRT_TIME)
+     VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PA01ES01,jdbcType=VARCHAR}, 
+     SYSDATE)
+	</insert>
+</mapper>

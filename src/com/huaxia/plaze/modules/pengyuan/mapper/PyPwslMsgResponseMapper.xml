@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPwslMsgResponseMapper">
+
+	<insert id="save"
+		parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPwslMsgResponse">
+		INSERT INTO PY_PWSL_MSG_RESPONSE(
+		UUID,
+		CRT_TIME,
+		CRT_USER,
+		TRN_ID,
+		MESSAGE_BODY,
+		APP_ID
+		) VALUES(
+		sys_guid(),
+		sysdate,
+		#{crtUser,jdbcType = VARCHAR},
+		#{trnId,jdbcType = CHAR},
+		#{msaagesBody},
+		#{appId}
+
+		)
+	</insert>
+
+	<select id="findMsgByRequest" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT P.MESSAGE_BODY FROM PY_PWSL_MSG_RESPONSE P LEFT JOIN
+		PY_PWSL_TRN_REQUEST R ON P.TRN_ID=R.TRN_ID WHERE
+		R.NAME=#{name} AND R.CERT_NO=#{certNo}
+		AND R.QUERY_MODE='1'
+		AND P.CRT_TIME <![CDATA[ < ]]>
+		SYSDATE AND P.CRT_TIME <![CDATA[ > ]]>
+		SYSDATE-7
+		ORDER BY P.CRT_TIME
+	</select>
+
+</mapper>

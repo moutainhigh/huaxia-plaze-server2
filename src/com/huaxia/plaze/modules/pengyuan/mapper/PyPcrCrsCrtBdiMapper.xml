@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtBdiMapper">
+
+	<insert id="savePyPcrCrsCrtBdi"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtBdi">
+		INSERT INTO PY_PCR_CRS_CRT_BDI(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			SUB_REPORT_TYPE,
+			SUB_REPORT_TYPE_COST,
+			TREAT_RESULT,
+			TREAT_ERROR_CODE,
+			ERROR_MESSAGE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{subReportType},
+			#{subReportTypeCost},
+			#{treatResult},
+			#{TreatErrorCode},
+			#{errorMessage},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

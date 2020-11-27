@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.qyhy.mapper.QyhyTrnRequestMapper">
+	<insert id="insertQyhyRequestParammeters" parameterType="com.huaxia.plaze.modules.qyhy.domain.QyhyTrnRequestParameters">
+		INSERT INTO QYHY_TRN_REQUEST (
+		  UUID,
+		  CRT_TIME,
+		  CRT_USER,
+		  TRN_ID,
+		  REQUEST_CHANNEL,
+		  QUERY_MODE,
+		  ENTERPRISE,
+		  CERT_TYPE,
+		  CERT_NO,
+		  NAME,
+		  MOBILE
+		) VALUES (
+		    sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{enterprise, jdbcType=VARCHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR}
+		)
+	</insert>
+	<select id="selectQyhyParamList" parameterType="java.lang.String">
+		SELECT ENTERPRISE, CERT_NO FROM QYHY_TRN_REQUEST WHERE TRN_ID = #{trnId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectHistoryReport" parameterType="java.lang.String" resultType="java.lang.String">
+		select t2.response_body
+  		from qyhy_trn_request t1, qyhy_msg_response t2
+ 		where t1.trn_id = t2.trn_id
+ 		and t1.enterprise = #{enterprise,jdbcType=VARCHAR}
+ 		and t2.crt_time &gt; sysdate - 30
+ 		and rownum = 1
+	</select>
+	
+</mapper>

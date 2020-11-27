@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongSpecialListForLmCellMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.bairong.domain.BRZXSpecialListForLmCell">
+		INSERT INTO BAIRONG_SPECIALLIST_LM (
+		    UUID, CRT_TIME, CRT_USER, FK_UUID,
+			LM_ABNORMAL, LM_PHONE_OVERDUE, LM_BANK_BAD,
+			LM_BANK_OVERDUE, LM_BANK_FRAUD, LM_BANK_LOST,
+			LM_BANK_REFUSE, LM_NBANK_P2P_BAD, LM_NBANK_P2P_OVERDUE, 
+			LM_NBANK_P2P_FRAUD, LM_NBANK_P2P_LOST, LM_NBANK_P2P_REFUSE,
+			LM_NBANK_MC_BAD, LM_NBANK_MC_OVERDUE, LM_NBANK_MC_FRAUD, 
+			LM_NBANK_MC_LOST, LM_NBANK_MC_REFUSE,LM_NBANK_CA_BAD, 
+			LM_NBANK_CA_OVERDUE, LM_NBANK_CA_FRAUD, LM_NBANK_CA_LOST, 
+			LM_NBANK_CA_REFUSE, LM_NBANK_COM_BAD, LM_NBANK_COM_OVERDUE, 
+			LM_NBANK_COM_FRAUD, LM_NBANK_COM_LOST, LM_NBANK_COM_REFUSE,
+			LM_NBANK_CF_BAD, LM_NBANK_CF_OVERDUE, LM_NBANK_CF_FRAUD, 
+			LM_NBANK_CF_LOST, LM_NBANK_CF_REFUSE,LM_NBANK_OTHER_BAD,
+			LM_NBANK_OTHER_OVERDUE, LM_NBANK_OTHER_FRAUD, LM_NBANK_OTHER_LOST, 
+			LM_NBANK_OTHER_REFUSE,
+			SWIFT_NUMBER 
+		) VALUES (
+			SYS_GUID(), SYSDATE, 
+			#{crtUser, jdbcType = VARCHAR},
+			#{pkUuid, jdbcType = VARCHAR},
+			#{slLmCellAbnormal,jdbcType=VARCHAR}, #{slLmCellPhoneOverdue,jdbcType=VARCHAR}, #{slLmCellBankBad,jdbcType=VARCHAR}, 
+	        #{slLmCellBankOverdue,jdbcType=VARCHAR}, #{slLmCellBankFraud,jdbcType=VARCHAR}, #{slLmCellBankLost,jdbcType=VARCHAR}, 
+	        #{slLmCellBankRefuse,jdbcType=VARCHAR}, #{slLmCellNbankP2pBad,jdbcType=VARCHAR}, #{slLmCellNbankP2pOverdue,jdbcType=VARCHAR},
+	 		#{slLmCellNbankP2pFraud,jdbcType=VARCHAR}, #{slLmCellNbankP2pLost,jdbcType=VARCHAR}, #{slLmCellNbankP2pRefuse,jdbcType=VARCHAR},
+	  		#{slLmCellNbankMcBad,jdbcType=VARCHAR}, #{slLmCellNbankMcOverdue,jdbcType=VARCHAR}, #{slLmCellNbankMcFraud,jdbcType=VARCHAR}, 
+	 		#{slLmCellNbankMcLost,jdbcType=VARCHAR}, #{slLmCellNbankMcRefuse,jdbcType=VARCHAR},  #{slLmCellNbankCaBad,jdbcType=VARCHAR},
+	 		#{slLmCellNbankCaOverdue,jdbcType=VARCHAR}, #{slLmCellNbankCaFraud,jdbcType=VARCHAR}, #{slLmCellNbankCaLost,jdbcType=VARCHAR}, 
+	 		#{slLmCellNbankCaRefuse,jdbcType=VARCHAR}, #{slLmCellNbankComBad,jdbcType=VARCHAR}, #{slLmCellNbankComOverdue,jdbcType=VARCHAR},
+	 		#{slLmCellNbankComFraud,jdbcType=VARCHAR}, #{slLmCellNbankComLost,jdbcType=VARCHAR}, #{slLmCellNbankComRefuse,jdbcType=VARCHAR},
+	 		#{slLmCellNbankCfBad,jdbcType=VARCHAR}, #{slLmCellNbankCfOverdue,jdbcType=VARCHAR}, #{slLmCellNbankCfFraud,jdbcType=VARCHAR}, 
+	 	    #{slLmCellNbankCfLost,jdbcType=VARCHAR}, #{slLmCellNbankCfRefuse,jdbcType=VARCHAR}, #{slLmCellNbankOtherBad,jdbcType=VARCHAR},
+	 		#{slLmCellNbankOtherOverdue,jdbcType=VARCHAR}, #{slLmCellNbankOtherFraud,jdbcType=VARCHAR}, #{slLmCellNbankOtherLost,jdbcType=VARCHAR},
+		    #{slLmCellNbankOtherRefuse,jdbcType=VARCHAR},
+			#{swiftNumber, jdbcType = VARCHAR}
+		)
+	</insert>
+
+</mapper>

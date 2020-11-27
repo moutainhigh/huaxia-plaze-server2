@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.yilianzhong.mapper.YlzRepDataMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.yilianzhong.domain.YlzRepData">
+		INSERT INTO YLZ_REP_DATA(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			COMPANY_NAME,
+			IS_ON_JOB,
+			INSURED_STATUS,
+			REPAYMENT_ABILITY,
+			BEGIN_PAYMENT_DATE,
+			LATEST_PAYMENT_DATE,
+			CERT_NO
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{companyName,jdbcType = VARCHAR},
+			#{isOnJob,jdbcType = VARCHAR},
+			#{insuredStatues,jdbcType = VARCHAR},
+			#{repaymentAbility,jdbcType = VARCHAR},
+			#{beginPaymentDate,jdbcType = VARCHAR},
+			#{latestPaymentDate,jdbcType = VARCHAR},
+			#{certNo,jdbcType = VARCHAR}
+		)
+	</insert>
+	
+</mapper>

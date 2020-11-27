@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.szjd.mapper.SzjdMapper">
+	
+	<insert id="insertSzjdRequest" parameterType="com.huaxia.plaze.modules.szjd.domain.SzjdRequest">
+		INSERT INTO PBOC_SZJD_BATCH_REQUEST (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			USER_NAME,
+			ID_TYPE,
+			ID_NUM,
+			QUERY_REASON,
+			STATUS,
+			FILE_ID,
+			PRODUCT_DATE,
+			TRN_ID,
+			BATCH_NO
+		)
+		values(
+			SYS_GUID(),
+			SYSDATE,
+			#{crtUser},
+			#{userName},
+			#{idType},
+			#{idNum},
+			#{queryReason},
+			#{status},
+			#{fileId},
+			#{productDate},
+			#{trnId},
+			#{batchNo}
+		)
+	
+	</insert>
+	
+</mapper>

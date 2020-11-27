@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.unicom.mapper.UnicomOnlineMapper">
+	<resultMap id="result_Base"
+		type="com.huaxia.plaze.modules.unicom.domain.UnicomOnlineMsgResponse">
+		<result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+		<result column="TRN_ID" property="trnId" jdbcType="VARCHAR" />
+		<result column="MESSAGE_BODY" property="messageBody" jdbcType="CLOB" />
+	</resultMap>
+	
+	<!-- 查询数据库历史数据 -->
+	<select id="selectListByParams" parameterType="java.util.Map"
+		resultMap="result_Base">
+		      select CRT_USER,TRN_ID,MESSAGE_BODY from (
+    select b.* from unicom_online_trn_request a,UNICOM_ONLINE_MSG_RESPONSE b where a.trn_id=b.trn_id
+    and a.cert_no= #{certNo} and a.name=#{name} and a.mobile=#{mobile} order by a.crt_time desc ) c where rownum=1
+	</select>
+	<!-- 查询24小时内的数据 -->
+	<select id="select24HoursListByParams" parameterType="java.util.Map"
+		resultMap="result_Base">
+		    select CRT_USER,TRN_ID,MESSAGE_BODY from (
+    select b.* from unicom_online_trn_request a,UNICOM_ONLINE_MSG_RESPONSE b where a.trn_id=b.trn_id
+    and a.cert_no= #{certNo} and a.name=#{name} and a.mobile=#{mobile} AND (b.CRT_TIME BETWEEN
+		sysdate -1 AND sysdate) order by a.crt_time desc ) c where rownum=1
+	</select>
+	<insert id="insertUnicomOnlineTrnRequest" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomOnlineTrnRequest">
+		INSERT INTO UNICOM_ONLINE_TRN_REQUEST (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			CERT_TYPE,
+			CERT_NO,
+			NAME,
+			MOBILE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+	<insert id="insertUnicomOnlineMsgResponse" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomOnlineMsgResponse">
+		INSERT INTO UNICOM_ONLINE_MSG_RESPONSE (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			MESSAGE_BODY
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{messageBody, jdbcType = CLOB}
+		)	
+	</insert>
+	
+	<insert id="insertUnicomOnline" parameterType="com.huaxia.plaze.modules.unicom.domain.UnicomOnline">
+		INSERT INTO UNICOM_ONLINE_DATA (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			STATUS,
+			CODE,
+			ERROR_DESC,
+			CHECK_RESULT,
+			CARRIER,
+			CERT_NO
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{status, jdbcType = CHAR},
+			#{code, jdbcType = VARCHAR},
+			#{errorDesc, jdbcType = VARCHAR},
+			#{checkResult, jdbcType = VARCHAR},
+			#{carrier, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+</mapper>

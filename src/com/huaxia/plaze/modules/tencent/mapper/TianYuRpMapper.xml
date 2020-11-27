@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tencent.mapper.TianYuRpMapper">
+
+	<insert id="insertResponseInfo" parameterType="java.util.Map">
+		INSERT INTO TIANYU_MSG_RESPONSE (
+			UUID, CRT_TIME, CRT_USER,TRN_ID, RESPONSE_BODY
+		) VALUES (
+			SYS_GUID(),SYSDATE,
+			#{rqChannel, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{responseBody, jdbcType = VARCHAR}
+		)
+	</insert>
+    
+</mapper>

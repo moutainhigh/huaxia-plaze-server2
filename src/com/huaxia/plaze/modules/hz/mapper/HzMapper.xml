@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.hz.mapper.HzMapper">
+	
+	<insert id="insertHzTrnRequest" parameterType="com.huaxia.plaze.modules.hz.domain.HzTrnRequest">
+		INSERT INTO HZ_TRN_REQUEST (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			CERT_TYPE,
+			CERT_NO,
+			NAME,
+			MOBILE,
+			TRN_CODE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{requestChannel, jdbcType = VARCHAR},
+			#{queryMode, jdbcType = CHAR},
+			#{certType, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{mobile, jdbcType = VARCHAR},
+			#{trnCode, jdbcType = VARCHAR}
+		)	
+	</insert>
+	
+	<insert id="insertHzMsgResponse" parameterType="com.huaxia.plaze.modules.hz.domain.HzMsgResponse">
+		INSERT INTO HZ_MSG_RESPONSE (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			MESSAGE_BODY
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{messageBody, jdbcType = CLOB}
+		)	
+	</insert>
+	
+	<insert id="insertHzInfo" parameterType="com.huaxia.plaze.modules.hz.domain.HzCollection">
+		insert into hz_info(
+			UUID,CRT_TIME,CRT_USER,TRN_ID,CODE,MSG,ORDER_NO,CERT_NO
+		) values (
+			sys_guid(),sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{code, jdbcType = VARCHAR},
+			#{msg, jdbcType = VARCHAR},
+			#{orderNo, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertHzMatchStatus" parameterType="com.huaxia.plaze.modules.hz.domain.Data">
+		insert into hz_match_status(
+			UUID,CRT_TIME,CRT_USER,TRN_ID,NAME,PID,DATASTATUS
+		) values (
+			sys_guid(),sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR},
+			#{pid, jdbcType = VARCHAR},
+			#{dataStatus, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertHzApiChannelType" parameterType="com.huaxia.plaze.modules.hz.domain.Data">
+		insert into hz_api_channel_type (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,SZF0001
+		) values (
+			sys_guid(),sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{apiChannelType, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertHzGrxx" parameterType="java.util.List">
+		insert into hz_grxx (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,XM,SFZH,XB,CSRQ,MZ,ADDR,HKSX,JXDM,ZZDZ,DJRQ,ZXBZ
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.xm,jdbcType=VARCHAR},
+		#{item.sfzh,jdbcType=VARCHAR},
+		#{item.xb,jdbcType=VARCHAR},
+		#{item.csrq,jdbcType=VARCHAR},
+		#{item.mz,jdbcType=VARCHAR},
+		#{item.addr,jdbcType=VARCHAR},
+		#{item.hksx,jdbcType=VARCHAR},
+		#{item.jxdm,jdbcType=VARCHAR},
+		#{item.zzdz,jdbcType=VARCHAR},
+		#{item.djrq,jdbcType=VARCHAR},
+		#{item.zxbz,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzMarryInfo" parameterType="java.util.List">
+		insert into hz_marry_info (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,BUSINESSTYPE
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.businessType,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzgjjxx" parameterType="java.util.List">
+		insert into hz_gjjxx (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,DEPT_NAME,STATUS,SET_DATE,PAY_YM,LXYS,LJYS,PAY_BASE,PPAY_AMT,CPAY_AMT,PAY_AMT,GRJCJZ
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.deptName,jdbcType=VARCHAR},
+		#{item.status,jdbcType=VARCHAR},
+		#{item.setDate,jdbcType=VARCHAR},
+		#{item.payYm,jdbcType=VARCHAR},
+		#{item.lxys,jdbcType=VARCHAR},
+		#{item.ljys,jdbcType=VARCHAR},
+		#{item.payBase,jdbcType=VARCHAR},
+		#{item.pPayAmt,jdbcType=VARCHAR},
+		#{item.cPayAmt,jdbcType=VARCHAR},
+		#{item.payAmt,jdbcType=VARCHAR},
+		#{item.grjcjz,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzRsjZxAc01" parameterType="java.util.List">
+		insert into HZ_RSJ_ZX_AC01 (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,AAC002,AAB004,AAE002,LXYS,LJYS,BAC601,BAC603,BAD006,BAD007,BAD008,BAD009
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.aac002,jdbcType=VARCHAR},
+		#{item.aab004,jdbcType=VARCHAR},
+		#{item.aae002,jdbcType=VARCHAR},
+		#{item.lxys,jdbcType=VARCHAR},
+		#{item.ljys,jdbcType=VARCHAR},
+		#{item.bac601,jdbcType=VARCHAR},
+		#{item.bac603,jdbcType=VARCHAR},
+		#{item.bad006,jdbcType=VARCHAR},
+		#{item.bad007,jdbcType=VARCHAR},
+		#{item.bad008,jdbcType=VARCHAR},
+		#{item.bad009,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzSbFeeinfogrid" parameterType="java.util.List">
+		insert into HZ_SB_FEEINFOGRID (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,AAE003,AAE020_100,AAE180_100,AAB004,AAA115
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.aae003,jdbcType=VARCHAR},
+		#{item.aae020_100,jdbcType=VARCHAR},
+		#{item.aae180_100,jdbcType=VARCHAR},
+		#{item.aab004,jdbcType=VARCHAR},
+		#{item.aaa115,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzVehicleInfo" parameterType="java.util.List">
+		insert into HZ_VEHICLE_INFO (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,DYBJ,HPZL,DJRQ
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.dybj,jdbcType=VARCHAR},
+		#{item.hpzl,jdbcType=VARCHAR},
+		#{item.djrq,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzEnterpriseInfo" parameterType="java.util.List">
+		insert into HZ_ENTERPRISE_INFO (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,UNISCID,QYMC,QYLX,FDDBR,SFZJHM,ZCZB,JYFW,HZRQ,CLRQ,JYQSRQ,JYJZRQ,ZZYXQXQSRQ,ZZYXQXJZRQ
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.uniscid,jdbcType=VARCHAR},
+		#{item.qymc,jdbcType=VARCHAR},
+		#{item.qylx,jdbcType=VARCHAR},
+		#{item.fddbr,jdbcType=VARCHAR},
+		#{item.sfzjhm,jdbcType=VARCHAR},
+		#{item.zczb,jdbcType=VARCHAR},
+		#{item.jyfw,jdbcType=VARCHAR},
+		#{item.hzrq,jdbcType=VARCHAR},
+		#{item.clrq,jdbcType=VARCHAR},
+		#{item.jyqsrq,jdbcType=VARCHAR},
+		#{item.jyjzrq,jdbcType=VARCHAR},
+		#{item.zzyxqxqsrq,jdbcType=VARCHAR},
+		#{item.zzyxqxjzrq,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzGjjLoanInfo" parameterType="java.util.List">
+		insert into HZ_GJJ_LOAN_INFO (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,LN_AMT,LN_BAL,LN_TERM,REM_TERM,SUM_OVL_DAY
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.lnAmt,jdbcType=VARCHAR},
+		#{item.lnBal,jdbcType=VARCHAR},
+		#{item.lnTerm,jdbcType=VARCHAR},
+		#{item.remTerm,jdbcType=VARCHAR},
+		#{item.sumOvlDay,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzFyNaturalPerson" parameterType="java.util.List">
+		insert into HZ_FY_NATURAL_PERSON (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,SQZXBD,AH,AY,ZXFYMC,AJZT
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.sqzxbd,jdbcType=VARCHAR},
+		#{item.ah,jdbcType=VARCHAR},
+		#{item.ay,jdbcType=VARCHAR},
+		#{item.zxfymc,jdbcType=VARCHAR},
+		#{item.ajzt,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzVehiclePenaltyInfo" parameterType="java.util.List">
+		insert into HZ_VEHICLE_PENALTY_INFO (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,WFSJ,WFJFS,DSR
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.wfsj,jdbcType=VARCHAR},
+		#{item.wfjfs,jdbcType=VARCHAR},
+		#{item.dsr,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<insert id="insertHzWaterAffairsInfo" parameterType="java.util.List">
+		insert into HZ_WATER_AFFAIRS_INFO (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,SERV_CODE,COLLECTION_DT,PAYMENT_STATUS
+		)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		select sys_guid(),sysdate,#{item.crtUser,jdbcType=VARCHAR},
+		#{item.trnId,jdbcType=VARCHAR},
+		#{item.servCode,jdbcType=VARCHAR},
+		#{item.collectionDt,jdbcType=VARCHAR},
+		#{item.paymentStatus,jdbcType=VARCHAR} from dual
+	</foreach>
+	</insert>
+	
+	<select id="selectBody" resultType="java.lang.String">
+	select message_body from(
+		select t2.message_body from hz_trn_request t1,hz_msg_response t2 where t1.trn_id = t2.trn_id
+		and t1.cert_no = #{certNo, jdbcType = VARCHAR}
+		and t2.crt_time > sysdate-3
+		order by t2.crt_time desc)
+		where rownum = 1
+	</select>
+	
+	
+</mapper>

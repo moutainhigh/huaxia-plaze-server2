@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorRiskItemMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.tongdun.domain.MulBorRiskItem">
+		INSERT INTO MULBOR_RISK_ITEM (
+			  UUID ,
+			  CRT_TIME,
+			  CRT_USER,
+			  REF_UUID ,
+			  PK_UUID ,
+			 APP_ID  ,
+		     TRN_ID,
+		      SCORE  ,
+			  DECISION   ,
+			  RISK_NAME  ,
+			  POLICY_DECISION ,
+			  POLICY_MODE   ,
+			  POLICY_SCORE ,
+			  POLICY_NAME ,
+			  RULE_ID
+			
+		) VALUES (
+			#{uuid, jdbcType = CHAR},
+			#{crtTime, jdbcType = TIMESTAMP},
+			#{crtUser, jdbcType = VARCHAR},
+			
+			#{refUuid, jdbcType = CHAR},
+			#{pkUuid, jdbcType = CHAR},
+			#{appId, jdbcType = CHAR},
+			#{trnId, jdbcType = CHAR},
+			#{score, jdbcType = INTEGER},
+			#{decision, jdbcType = VARCHAR},
+			#{riskName, jdbcType = VARCHAR},
+			#{policyDecision, jdbcType = VARCHAR},
+			#{policyMode, jdbcType = VARCHAR},
+			#{policyScore, jdbcType = VARCHAR},
+			#{policyName, jdbcType = VARCHAR},
+			#{ruleId, jdbcType = INTEGER}
+		
+		)
+	</insert>
+	
+</mapper>

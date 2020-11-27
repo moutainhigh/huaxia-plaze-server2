@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.qyhy.mapper.QyhyTrnResponseMapper">
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.qyhy.domain.QyhyResponseParameters">
+		INSERT INTO QYHY_T001200(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			RESPONSE_CODE,
+			RESPONSE_DESC,
+			RESPONSE_BODY
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{responseCode,jdbcType = VARCHAR},
+			#{responseDesc,jdbcType = VARCHAR},
+			#{resultJson,jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<select id="findResponseByRequest" parameterType="java.util.Map">
+	 SELECT RESPONSE_BODY
+		FROM QYHY_MSG_RESPONSE WHERE TRN_ID IN (
+     SELECT TRN_ID FROM qyhy_trn_request
+		WHERE ENTERPRISE = #{enterprise,jdbcType = VARCHAR} 
+		AND NAME = #{name,jdbcType = VARCHAR} 
+		AND TRN_ID = #{trnId,jdbcType = VARCHAR})
+	 ORDER BY CRT_TIME
+	</select>
+	<insert id="insertBodyOriginal" parameterType="com.huaxia.plaze.modules.qyhy.domain.QyhyResponseParameters" >
+		INSERT INTO qyhy_msg_response (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			RESPONSE_BODY
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{responseBody,jdbcType = CLOB}
+		)
+	</insert>
+</mapper>

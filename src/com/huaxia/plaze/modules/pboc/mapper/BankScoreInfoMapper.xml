@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankScoreInfoMapper">
+	<!-- 保存评分信息单元数据 PC01data/PC01data -->
+	<insert id="insertScoreInfo" parameterType="PC01data">
+	  INSERT INTO BANK_CREDIT_CUE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      NUMBER_READ, OPPOSITE_POSITION, SCORE_EXPLAIN_COUNT, 
+      CRT_TIME)
+      VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+      #{PC010Q01,jdbcType=VARCHAR}, #{PC010Q02,jdbcType=VARCHAR}, #{PC010S01,jdbcType=VARCHAR}, 
+      SYSDATE)
+	</insert>
+	<!-- 保存分数说明信息  PC01/PC010D01 -->
+	<insert id="insertScoreEleList" parameterType="java.util.List">
+		INSERT INTO BANK_CREDITSCORE_SCOREELE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+        DESC_CONTENT, CRT_TIME) 
+		<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	    SELECT
+			 SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, 
+			 #{item.PC010D01}, SYSDATE
+		FROM DUAL
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankTaxArrearsRecordMapper">
+	<!-- 保存欠税记录信息PF01A -->
+	<insert id="insertTaxArrearsRecordInfo" parameterType="PF01A" >
+    INSERT INTO BANK_PUBLIC_TAXARREAR (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      TAX_ORG_NAME, OUTSTD_TAXES_AMT_SUM, OUTSTD_TAX_STAT_DT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+      #{PF01AQ01,jdbcType=VARCHAR}, #{PF01AJ01,jdbcType=VARCHAR}, #{PF01AR01,jdbcType=VARCHAR},
+      #{relateId,jdbcType=VARCHAR},SYSDATE
+      )
+	</insert>
+	<!-- 保存欠税记录的 标注及声明信息段 PF01Z/PF01Zdata  -->
+	<insert id="insertTaxArrearsRecordPotLabelState" parameterType="PF01Zdata" >
+    INSERT INTO BANK_POT_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PF01ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存欠税记录的标注及声明信息 PF01Z/PF01ZH 集合 -->
+	<insert id="insertTaxArrearsRecordPotLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_POT_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, TYPE, 
+      CONTENT, ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PF01ZD01,jdbcType=VARCHAR}, 
+      #{item.PF01ZQ01,jdbcType=VARCHAR}, #{item.PF01ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

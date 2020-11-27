@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.nciic.mapper.PoliceResponseMapper">
+
+	<insert id="insertInfo"  parameterType="com.huaxia.plaze.modules.nciic.domain.NciicXpInfo">
+		INSERT INTO NCIIC_XP_INFO (
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			GMSFHM,
+			RESULT_GMSFHM,
+			XM,
+			RESULT_XM,
+			XP,
+			ERROR_CODE,
+			ERROR_MESSAGE,
+			ERROR_MESSAGE_COL,
+			RESULT_FX,
+			RESULT_FS
+		) VALUES (
+			SYS_GUID(),
+			SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{gmsfhm, jdbcType = VARCHAR},
+			#{gmsfhmResult, jdbcType = VARCHAR},
+			#{xm, jdbcType = VARCHAR},
+			#{xmResult, jdbcType = VARCHAR},
+			#{xp, jdbcType = CLOB},
+			#{errorCode, jdbcType = VARCHAR},
+			#{errorMessage, jdbcType = VARCHAR},
+			#{errorMessageCol, jdbcType = VARCHAR},
+			#{resultFx, jdbcType = VARCHAR},
+			#{resultFs, jdbcType = VARCHAR}
+		)
+	</insert>
+	<insert id="insertResponse"  parameterType="com.huaxia.plaze.modules.nciic.domain.NciicXpResponse">
+		INSERT INTO NCIIC_XP_RESPONSE (
+			UUID,CRT_TIME,CRT_USER,TRN_ID,
+			MESSAGE_BODY,CERT_NO,NAME
+		) VALUES (
+			sys_guid(),
+			SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			#{messageBody, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{name, jdbcType = VARCHAR}
+			)
+	</insert>
+	
+	<select id="queryResponseByRequest" parameterType="java.util.Map" resultType="java.lang.String">
+     SELECT * FROM (SELECT MESSAGE_BODY  FROM NCIIC_XP_RESPONSE
+		WHERE CERT_NO=#{certNo,jdbcType = VARCHAR} 
+		AND NAME=#{name,jdbcType = VARCHAR} 
+	 ORDER BY CRT_TIME) WHERE ROWNUM = '1'
+	</select>
+</mapper>

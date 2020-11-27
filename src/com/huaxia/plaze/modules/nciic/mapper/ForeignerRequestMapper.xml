@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.nciic.mapper.ForeignerRequestMapper">
+
+	<insert id="insert"  parameterType="com.huaxia.plaze.modules.nciic.domain.NciicForeignerRequest">
+		INSERT INTO NCIIC_FOREIGNER_REQUEST(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			REQUEST_CHANNEL,
+			QUERY_MODE,
+			CERT_TYPE,
+			CERT_NO,
+			NAME,
+			BIRTH,
+  			EXPIRY_DATE
+		) VALUES (
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{requestChannel,jdbcType = VARCHAR},
+			#{queryMode,jdbcType = CHAR},
+			#{certType,jdbcType = VARCHAR},
+			#{certNo,jdbcType = VARCHAR},
+			#{name,jdbcType = VARCHAR},
+			#{birth,jdbcType = VARCHAR},
+			#{expiryDate,jdbcType = VARCHAR}
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.fico.mapper.FicoMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.fico.domain.Fico">
+		INSERT INTO FICO_BIG_DATA_HUB (
+			UUID,CRT_TIME,CRT_USER,RET_CODE,SCORE_ID,SCORE,REASON,ERR_MSG,FRAUD,TRN_ID,CERT_NO
+		) VALUES (
+			#{uuid, jdbcType = CHAR},
+			sysdate,
+			#{crtUser, jdbcType = VARCHAR},
+			#{retCoode, jdbcType = CHAR},
+			#{scoreId},
+			#{score, jdbcType = INTEGER},
+			#{reason, jdbcType = VARCHAR},
+			#{errMsg, jdbcType = VARCHAR},
+		    #{fraud, jdbcType = VARCHAR},
+		    #{trnId, jdbcType = CHAR},
+		    #{certNo, jdbcType = VARCHAR}
+		)
+	</insert>
+	
+	<select id="getCountByAppId" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM FICO_BIG_DATA_HUB WHERE APP_ID = #{appId, jdbcType=CHAR}
+	</select>
+	
+	<select id="selectConfirmPboc" parameterType="java.lang.String" resultType="com.huaxia.plaze.modules.fico.domain.Fico">
+		SELECT APP_ID APPID,FICO_NO_BUREAU PBOC  FROM OPAS_FICO_SD_BLAZE WHERE APP_ID = #{appId, jdbcType=CHAR}
+	</select>
+	<select id="selectBizInpApplC1JudgeFlag" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT YDJ_FLAG,MATCHING_CARD_FLAG  FROM OPAS_BIZ_INP_APPL_C1 WHERE APP_ID = #{appId, jdbcType=CHAR}
+	</select>
+</mapper>

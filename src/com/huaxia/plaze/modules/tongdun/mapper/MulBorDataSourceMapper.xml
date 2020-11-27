@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.tongdun.mapper.MulBorDataSourceMapper">
+	
+	<parameterMap type="java.util.Map" id="parameter_callDataSourceCount">
+		<parameter property="source_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="channel_code_num" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="v_set" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="end_num" mode="OUT" jdbcType="NUMERIC"/>
+	</parameterMap>
+
+	<select id="callDataSourceCount" parameterMap="parameter_callDataSourceCount" statementType="CALLABLE">
+		CALL DS_MULBOR_001500_COUNT(?,?,?,?)
+	</select>
+		
+</mapper>

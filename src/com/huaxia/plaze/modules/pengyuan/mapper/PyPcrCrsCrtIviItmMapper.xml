@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtIviItmMapper">
+
+	<insert id="savePyPcrCrsCrtIviItm"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtIviItm">
+		INSERT INTO PY_PCR_CRS_CRT_IVI_ITM(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			DOCUMENT_NO,
+			BIRTHDAY,
+			GENDER,
+			ORIGINAL_ADDRESS,
+			VERIFY_OF_PARITY,
+			VERIFY_OF_AREA,
+			VERIFY_OF_BIRTHDAY,
+			IS18_INDENTIFY,
+			VERIFY_RESULT,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{documentNo},
+			#{birthday},
+			#{gender},
+			#{originalAddress},
+			#{verifyOfParity},
+			#{verifyOfArea},
+			#{verifyOfBirthday},
+			#{is18Indentify},
+			#{verifyResult},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

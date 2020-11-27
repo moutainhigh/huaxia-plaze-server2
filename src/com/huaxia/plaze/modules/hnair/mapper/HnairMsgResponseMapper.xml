@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.hnair.mapper.HnairMsgResponseMapper">
+
+	<resultMap id="result_Base" type="com.huaxia.plaze.modules.hnair.domain.HnairMsgResponse">
+		<result column="UUID" property="uuid" jdbcType="VARCHAR" />
+		<result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+		<result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+		<result column="TRN_ID" property="trnId" jdbcType="VARCHAR" />
+		<result column="MESSAGE_BODY" property="messageBody" jdbcType="CLOB" />
+	</resultMap>
+
+	<!-- 查询24小时内的数据-->
+	<select id="selectListByParams" parameterType="java.util.Map"
+	resultMap="result_Base">
+		SELECT 
+			  UUID,
+			  CRT_TIME,
+			  CRT_USER,
+			  TRN_ID,
+			  MESSAGE_BODY
+		FROM HNAIR_MSG_RESPONSE 
+			WHERE TRN_ID IN 
+		(
+		SELECT TRN_ID  FROM OPAS_SEA_AIR_DATA 	WHERE CRT_TIME BETWEEN #{startDate} AND #{endDate}
+		)	
+   </select>
+
+
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.hnair.domain.HnairMsgResponse">
+		INSERT INTO HNAIR_MSG_RESPONSE (
+		  UUID,
+		  CRT_TIME,
+		  CRT_USER,
+		  TRN_ID,
+		  
+		  MESSAGE_BODY
+		) VALUES (
+		   	SYS_GUID(),
+			SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = CHAR},
+			
+			#{messageBody, jdbcType = CLOB}
+		)
+	</insert>
+	
+</mapper>

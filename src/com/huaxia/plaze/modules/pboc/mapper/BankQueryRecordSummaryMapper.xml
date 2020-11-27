@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankQueryRecordSummaryMapper">
+   <!-- 保存上一次查询记录 PC05A -->
+   <insert id="insertLastQueryRecord" parameterType="PC05A" >
+    INSERT INTO BANK_LAST_QUERY_RECORD (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, LAST_QUERY_DATE, 
+      LAST_QUERY_ORGAN_TYPE, LAST_QUERY_ORGAN_CODE, 
+      LAST_QUERY_REASON, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PC05AR01,jdbcType=VARCHAR}, 
+      #{PC05AD01,jdbcType=VARCHAR}, #{PC05AI01,jdbcType=VARCHAR}, 
+      #{PC05AQ01,jdbcType=VARCHAR}, SYSDATE)
+   </insert>
+   <!-- 保存查询记录汇总 PC05B -->
+   <insert id="insertQueryRecordSum" parameterType="PC05B" >
+    INSERT INTO BANK_QUERYINFO_NEW (UUID,IDENTITY_CARD_NO, UNIQUE_RELID, 
+      QUERY_ORG_1M_SUM2, QUERY_ORG_1M_SUM3,
+      QUERY_REC_1M_SUM2, QUERY_REC_1M_SUM3, QUERY_REC_1M_SUM4, 
+      QUERY_REC_2Y_SUM1,QUERY_REC_2Y_SUM5, QUERY_REC_2Y_SUM6,CRT_TIME)
+    VALUES (SYS_GUID(),#{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR},
+      #{PC05BS01,jdbcType=INTEGER}, #{PC05BS02,jdbcType=INTEGER},
+      #{PC05BS03,jdbcType=INTEGER}, #{PC05BS04,jdbcType=INTEGER}, #{PC05BS05,jdbcType=INTEGER}, 
+      #{PC05BS06,jdbcType=INTEGER}, #{PC05BS07,jdbcType=INTEGER}, #{PC05BS08,jdbcType=INTEGER},
+      SYSDATE
+      )
+   </insert>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pengyuan.mapper.PyPcrCrsCrtSisz2Hi5yMapper">
+
+	<insert id="savePyPcrCrsCrtSisz2Hi5y"  parameterType="com.huaxia.plaze.modules.pengyuan.domain.PyPcrCrsCrtSisz2Hi5y">
+		INSERT INTO PY_PCR_CRS_CRT_SISZ2_HI5Y(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			INFO_DATE,
+			UNIT_NAME,
+			UNIT_TYPE,
+			INSURANCE_TYPE,
+			START_DATE,
+			END_DATE,
+			INSURANCE_STATE,
+			APP_ID
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser},
+			#{trnId},
+			#{infoDate},
+			#{unitName},
+			#{unitType},
+			#{insuranceType},
+			#{startDate},
+			#{endDate},
+			#{insuranceState},
+			#{appId}
+		)
+	</insert>
+	
+</mapper>

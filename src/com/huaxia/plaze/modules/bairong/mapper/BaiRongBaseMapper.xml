@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.bairong.mapper.BaiRongBaseMapper">
+
+	<insert id="insert" parameterType="com.huaxia.plaze.modules.bairong.domain.BRZX">
+		INSERT INTO BAIRONG_SPECIALLIST_BASE (
+			UUID, CRT_TIME, CRT_USER, TRN_ID, PK_UUID, CERT_NO,
+			SWIFT_NUMBER, CODE
+		) VALUES (
+			SYS_GUID(),SYSDATE,
+			#{crtUser, jdbcType = VARCHAR},
+			#{trnId, jdbcType = VARCHAR},
+			#{pkUuid, jdbcType = VARCHAR},
+			#{certNo, jdbcType = VARCHAR},
+			#{swiftNumber, jdbcType = VARCHAR},
+			#{code, jdbcType = VARCHAR}
+		)
+	</insert>
+     
+</mapper>

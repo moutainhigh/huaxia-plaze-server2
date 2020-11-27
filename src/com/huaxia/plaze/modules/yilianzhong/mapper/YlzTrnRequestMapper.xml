@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.yilianzhong.mapper.YlzTrnRequestMapper">
+
+	<insert id="save"  parameterType="com.huaxia.plaze.modules.yilianzhong.domain.YlzTrnRequest">
+		INSERT INTO YLZ_TRN_REQUEST(
+			UUID,
+			CRT_TIME,
+			CRT_USER,
+			TRN_ID,
+			QUERY_MODE,
+			NAME,
+			CERT_NO,
+			REQUEST_CHANNEL
+		) VALUES(
+			sys_guid(),
+			sysdate,
+			#{crtUser,jdbcType = VARCHAR},
+			#{trnId,jdbcType = CHAR},
+			#{queryMode,jdbcType = CHAR},
+			#{name,jdbcType = VARCHAR},
+			#{certNo,jdbcType = VARCHAR},
+			#{requestChannel,jdbcType = VARCHAR}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.pboc.mapper.BankPostPaidServeMapper">
+   <!-- 保存后付费业务信息 PE01A -->
+	<insert id="insertPostPaidServeInfo" parameterType="PE01A" >
+	  INSERT INTO BANK_PUBLIC_TELPAYMENT (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, 
+      POST_PAID_ACCOUNT_TYPE, TELECOM_FACILITATOR, 
+      BUSI_TYPE, BUSI_OPN_DATE, CUR_PAY_STAT, 
+      CUR_DEBT_AMT, TALLY_YM, PREST24MPAY_STAT, 
+      RELATE_ID, CRT_TIME)
+      VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, 
+       #{PE01AD01,jdbcType=VARCHAR},#{PE01AQ01,jdbcType=VARCHAR}, 
+       #{PE01AD02,jdbcType=VARCHAR}, #{PE01AR01,jdbcType=VARCHAR}, #{PE01AD03,jdbcType=VARCHAR}, 
+       #{PE01AJ01,jdbcType=VARCHAR}, #{PE01AR02,jdbcType=VARCHAR}, #{PE01AQ02,jdbcType=VARCHAR},
+       #{relateId,jdbcType=VARCHAR},SYSDATE
+      )
+	</insert>
+	<!-- 保存后付费业务信息 的标注及声明信息段 PE01Z/pe01zData  -->
+	<insert id="insertPostPaidServePndLabelState" parameterType="PE01Zdata" >
+    INSERT INTO BANK_PND_LABEL_STATE (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, COUNT, 
+      RELATE_ID, CRT_TIME)
+    VALUES (SYS_GUID(), #{identityCardNo,jdbcType=VARCHAR}, #{uniqueRelid,jdbcType=VARCHAR}, #{PE01ZS01,jdbcType=VARCHAR}, 
+      #{relateId,jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	<!-- 保存后付费业务信息 的标注及声明信息PE01Z/PE01ZH集合 -->
+	<insert id="insertPostPaidServePndLabelStateInfoList" parameterType="java.util.List" >
+	INSERT INTO BANK_PND_LABEL_STATE_INFO (UUID, IDENTITY_CARD_NO, UNIQUE_RELID, TYPE, 
+      CONTENT, ADD_DATE, RELATE_ID, 
+      CRT_TIME)
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+	  SELECT
+	  SYS_GUID(), #{item.identityCardNo,jdbcType=VARCHAR}, #{item.uniqueRelid,jdbcType=VARCHAR}, #{item.PE01ZD01,jdbcType=VARCHAR}, 
+      #{item.PE01ZQ01,jdbcType=VARCHAR}, #{item.PE01ZR01,jdbcType=VARCHAR}, #{item.relateId,jdbcType=VARCHAR}, 
+      SYSDATE
+	  FROM DUAL
+	 </foreach>
+	</insert>
+</mapper>

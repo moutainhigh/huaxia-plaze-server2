@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huaxia.plaze.modules.jianbing.mapper.JianBingResponseMapper">
+
+	<insert id="insertBrief"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjBrief">
+		
+		INSERT INTO JIANBING_GJJ_BRIEF ( UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, NAME, ID, GJJ_SID, LOCATION_CID, CARD, CUSTOMER_ID,
+		BALANCE, FB_BALANCE, ONCE_BALANCE, DEPOSIT_AMOUNT, FB_DEPOSIT_AMOUNT,
+		RECORD_DATE, STATUS, COMPANY, DEPOSIT_BASE, INIT_DATE, START_DATE, PERSON_RATE,
+		COMPANY_RATE, GENDER, EMAIL, PHONE, MARRIAGE, ADDRESS, BIRTHDAY, COMPANY_ID,
+		PERSON_DEPOSIT_AMOUNT, COMPANY_DEPOSIT_AMOUNT, DEPOSIT_RATE, LOCATION)
+		VALUES (
+		sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key},#{name}, #{id}, #{gjj_sid}, #{location_cid},
+		#{card}, #{customer_id}, #{balance}, #{fb_balance}, #{once_balance},
+		#{deposit_amount}, #{fb_deposit_amount}, #{record_date}, #{status}, #{company},
+		#{deposit_base}, #{init_date}, #{start_date}, #{person_rate}, #{company_rate},
+		#{gender}, #{email}, #{phone}, #{marriage}, #{address}, #{birthday},
+		#{company_id}, #{person_deposit_amount}, #{company_deposit_amount},
+		#{deposit_rate}, #{location}
+
+         )         
+	</insert>
+	<insert id="insertBriefAnal"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjBriefAnal">
+		
+		INSERT INTO JIANBING_GJJ_BRIEF_ANALYSIS (UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY,DEPOSIT_BASE_ANALYSIS, RECORD_DATE_ANALYSIS,
+		PLATFORM_REFRESH_TIME, CONT_LAST_TIMES, CONSIS_MONTHS, SUM_TIMES, EXIST_MONTHS,
+		PLATFORM_CREATE_TIME, DEPOSIT_AMOUNT_ANALYSIS, BALANCE_ANALYSIS,
+		PLATFORM_UPDATED_TIME, LOCATION_ALL, CITY, PROVINCE, DEPOSIT_RATE_ANALYSIS,
+		GJJ_STATUS_ANALYSIS)
+		VALUES
+		(sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{deposit_base_analysis}, #{record_date_analysis},
+		#{platform_refresh_time}, #{cont_last_times}, #{consis_months}, #{sum_times},
+		#{exist_months}, #{platform_create_time}, #{deposit_amount_analysis},
+		#{balance_analysis}, #{platform_updated_time}, #{location_all}, #{city},
+		#{province}, #{deposit_rate_analysis}, #{gjj_status_analysis})
+
+	</insert>
+	<insert id="insertGjjDetail"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjDetail">
+		
+		INSERT INTO  JIANBING_GJJ_DETAIL(UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, SID, GJJ_SID, ORDER_ID, GJJ_TYPE, COMPANY, RECORD_DATE, OP_TYPE,
+		RECORD_MONTH, AMOUNT, BALANCE, STD_OP_TYPE, CREATED_TIME)
+		VALUES
+		( sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{sid}, #{gjj_sid}, #{order_id}, #{gjj_type},
+		#{company}, #{record_date}, #{op_type}, #{record_month}, #{amount}, #{balance},
+		#{std_op_type}, #{created_time})
+
+	</insert>
+	<insert id="insertDetailAnal"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjDetailAnal">
+	 
+		INSERT INTO JIANBING_GJJ_DETAIL_ANALYSIS  (UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, COMPANY_6M_ARR, COMPANY_12M_ARR,
+		COMPANY_24M_ARR, CREATED_DATE_ARR, DETAIL_TIMES, DETAIL_INIT_RECORD_DATE,
+		DETAIL_INIT_RECORD_MONTH, DETAIL_INIT_CREATE_TIME, DETAIL_LATEST_RECORD_DATE,
+		DETAIL_LATEST_RECORD_MONTH, DETAIL_LATEST_CREATE_TIME,
+		COMPANY_COUNT_12M_ANALYSIS, COMPANY_COUNT_24M_ANALYSIS,
+		COMPANY_COUNT_6M_ANALYSIS)VALUES(
+		sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{company_6m_arr}, #{company_12m_arr},
+		#{company_24m_arr}, #{created_date_arr}, #{detail_times},
+		#{detail_init_record_date}, #{detail_init_record_month},
+		#{detail_init_create_time}, #{detail_latest_record_date},
+		#{detail_latest_record_month}, #{detail_latest_create_time},
+		#{company_count_12m_analysis}, #{company_count_24m_analysis},
+		#{company_count_6m_analysis})    
+	</insert>
+	<insert id="insertComAnal"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingComAnalData">
+	   INSERT INTO JIANBING_COMPANY_ANAL_DATA (UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, COMPANY, CONT_LAST_TIMES, BACK_CONT_LAST_TIMES,
+		CONT_MAX_TIMES, BACK_CONT_MAX_TIMES, SUM_TIMES, BACK_SUM_TIMES, START_MONTH,
+		END_MONTH)
+		VALUES(
+		sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{company}, #{cont_last_times},
+		#{back_cont_last_times}, #{cont_max_times}, #{back_cont_max_times},
+		#{sum_times}, #{back_sum_times}, #{start_month}, #{end_month}   )
+	</insert>
+	
+	<insert id="insertGjjLoan"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjLoanBrief">
+		
+		INSERT INTO  JIANBING_GJJ_LOAN_BRIEF (UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, SID, LOCATION_CID, NAME, ID, CON_NO, STATUS, CREDIT, PERIOD,
+		RATE, WARNING_RATE, BALANCE, FUND, FUND_DATE, BANK, PHONE, ADDRESS, START_DATE,
+		END_DATE, RECORD_DATE, DUE_AMOUNT, PAY_PRINCIPLE, PAY_INTEREST, PAST_DUE,
+		PAST_INTEREST, PAST_PRINCIPLE, PAST_PERIOD, HISTORY_PAST_PERIOD,
+		HISTORY_PAST_AMOUNT, ASSURE_STYLE, HOUSE_TYPE, DEBIT_ACCOUNT, LEFT_PERIOD,
+		UPDATED_TIME, CREATED_TIME,DNAME,DIDNO)
+		VALUES(
+		sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{sid}, #{location_cid}, #{name}, #{id}, #{con_no},
+		#{status}, #{credit}, #{period}, #{rate}, #{warning_rate}, #{balance}, #{fund},
+		#{fund_date}, #{bank}, #{phone}, #{address}, #{start_date}, #{end_date},
+		#{record_date}, #{due_amount}, #{pay_principle}, #{pay_interest}, #{past_due},
+		#{past_interest}, #{past_principle}, #{past_period}, #{history_past_period},
+		#{history_past_amount}, #{assure_style}, #{house_type}, #{debit_account},
+		#{left_period}, #{updated_time}, #{created_time}, #{dname}, #{didno}
+         )
+	</insert>
+	<insert id="insertGjjLoanDetail"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingGjjLoanDetail">
+		INSERT INTO JIANBING_GJJ_LOAN_DETAIL (UUID, CRT_TIME,CRT_USER, TRN_ID,TRN_KEY, SID, LOAN_SID, RECORD_DATE, OP_TYPE, RECORD_MONTH, PRINCIPLE,
+		INTEREST, BASE, BALANCE, BILL_DATE, WARNING_INTEREST, REMARK, DEPOSIT_TYPE,
+		DUE_DATE, COMMENTS, PERIOD, CREATED_TIME)
+		VALUES(
+		sys_guid(), sysdate,#{crt_user}, #{trn_id},#{trn_key}, #{sid}, #{loan_sid}, #{record_date}, #{op_type},
+		#{record_month}, #{principle}, #{interest}, #{base}, #{balance}, #{bill_date},
+		#{warning_interest}, #{remark}, #{deposit_type}, #{due_date}, #{comments},
+		#{period}, #{created_time}
+		)
+
+	</insert>
+	<insert id="insertOriginMsg"  parameterType="com.huaxia.plaze.modules.jianbing.domain.JianBingMsgResponse">
+		INSERT INTO JIANBING_MSG_RESPONSE 
+		(UUID, CRT_TIME, CRT_USER, TRN_ID, MESSAGE_BODY, APPLY_ID)
+         VALUES(
+         SYS_GUID(), SYSDATE, #{crtUser}, #{trnId}, #{messageBody}, #{applyId}
+         )
+	</insert>
+	
+	
+	<select id="selectResponseByRequest" parameterType="java.lang.String" resultType="java.lang.String">
+     SELECT * FROM (SELECT MESSAGE_BODY  FROM JIANBING_MSG_RESPONSE
+		WHERE APPLY_ID=#{apply_id} 
+	 ORDER BY CRT_TIME) WHERE ROWNUM = '1'
+	</select>
+</mapper>
